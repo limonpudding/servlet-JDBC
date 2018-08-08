@@ -15,10 +15,10 @@
 <% String exception = request.getParameter("exception"); %>
 <c:choose>
     <c:when  test="${not empty exception}">
-        <h3>Ошибка: ${exception}</h3>
+        <h3>Error: ${exception}</h3>
     </c:when>
     <c:otherwise>
-        <h3>Ответ: ${answer}</h3>
+        <h3>Answer: ${answer}</h3>
     </c:otherwise>
 </c:choose>
 </body>

@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>App</servlet-name>
-        <servlet-class>org.App</servlet-class>
+        <servlet-class>org.Calc</servlet-class>
     </servlet>
 
     <servlet-mapping>

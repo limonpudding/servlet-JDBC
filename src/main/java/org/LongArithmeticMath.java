@@ -20,7 +20,7 @@ public class LongArithmeticMath {
             return sub(a, b);
         }
         if (a.getSign() == Sign.MINUS && b.getSign() == Sign.PLUS) {
-            b.setSign(Sign.MINUS);
+            a.setSign(Sign.PLUS);
             return sub(b, a);
         }
         int maxLength = a.getLength() > b.getLength() ? a.getLength() : b.getLength();
@@ -147,7 +147,7 @@ public class LongArithmeticMath {
         LongArithmethic result;
         Sign sign = Sign.PLUS;
         if (b.toString().equals("0")) {
-            throw new ArithmeticException("Делить на ноль нельзя!");
+            throw new ArithmeticException("Division by zero!");
         }
         if (a.getSign() != b.getSign()) {
             sign = Sign.MINUS;
@@ -165,7 +165,7 @@ public class LongArithmeticMath {
         Stack<LongArithmethic> resultList = new Stack<LongArithmethic>();
         temps.push(tmp);
         resultList.push(result);
-        while (a.compareTo(tmp) > 0) {
+        while (a.compareTo(tmp) >= 0) {
             tmp = LongArithmeticMath.mul(tmp, LongConst.TWO.getValue());
             result = LongArithmeticMath.mul(result, LongConst.TWO.getValue());
             temps.push(tmp);

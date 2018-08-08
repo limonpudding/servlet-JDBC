@@ -14,3 +14,11 @@
 7. [Сетевая модель OSI](https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D1%82%D0%B5%D0%B2%D0%B0%D1%8F_%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C_OSI)
 
 8. [Стандарт Servlet 3.0](http://download.oracle.com/otn-pub/jcp/servlet-3.0-fr-eval-oth-JSpec/servlet-3_0-final-spec.pdf?AuthParam=1533708526_d11235a75155049eb29d01976653da66)
+
+9. [java if...else в JSP](http://devlalala.blogspot.com/2013/05/java-ifelse-jsp-jstl.html)
+
+10. [Скрыть расширение JSP с веб-страниц](https://code.i-harness.com/ru/q/61c61d)
+
+11. []()
+
+12. []()
