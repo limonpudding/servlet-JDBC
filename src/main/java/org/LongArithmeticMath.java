@@ -144,17 +144,20 @@ public class LongArithmeticMath {
      * @return Результат деления без остатка
      */
     public static LongArithmethic div(LongArithmethic a, LongArithmethic b) {
-        LongArithmethic result = LongConst.ZERO.getValue();
+        LongArithmethic result;
+        Sign sign = Sign.PLUS;
         if (b.toString().equals("0")) {
-            throw new ArithmeticException();
+            throw new ArithmeticException("Делить на ноль нельзя!");
         }
         if (a.getSign() != b.getSign()) {
-            result.setSign(Sign.MINUS);
+            sign = Sign.MINUS;
         }
         if (a.compareTo(b) < 0) {
-            return result;
+            return LongConst.ZERO.getValue();
         } else if (a.compareTo(b) == 0){
-            return LongConst.ONE.getValue();
+            result = LongConst.ONE.getValue();
+            result.setSign(sign);
+            return result;
         }
         result = LongConst.ONE.getValue();
         LongArithmethic tmp = b;
@@ -173,11 +176,6 @@ public class LongArithmeticMath {
 
         result = resultList.pop();
         tmp = temps.pop();
-        //32155597663776798666
-        //32155597663776798666
-        //1343677013256588121
-        //100000000000000000
-        //200000000000000000
         while (a.compareTo(tmp) != 0) {
             if (temps.isEmpty())
                 break;
@@ -194,6 +192,7 @@ public class LongArithmeticMath {
             }
         }
         result.getLength();
+        result.setSign(sign);
         return result;
     }
 }

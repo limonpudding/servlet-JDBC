@@ -12,6 +12,14 @@
     <title>Ответ</title>
 </head>
 <body>
-    <h1>Ответ : <%= request.getParameter("answer") %></h1>
+<% String exception = request.getParameter("exception"); %>
+<c:choose>
+    <c:when  test="${not empty exception}">
+        <h3>Ошибка: ${exception}</h3>
+    </c:when>
+    <c:otherwise>
+        <h3>Ответ: ${answer}</h3>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

@@ -17,28 +17,38 @@ public class App extends HttpServlet {
         LongArithmethic a = new LongArithmeticImplList(strA);
         LongArithmethic b = new LongArithmeticImplList(strB);
         LongArithmethic res;
-        switch (operation) {
-            case "sum":
-                res = LongArithmeticMath.sum(a, b);
-                break;
-            case "sub":
-                res = LongArithmeticMath.sub(a, b);
-                break;
-            case "mul":
-                res = LongArithmeticMath.mul(a, b);
-                break;
-            case "div":
-                res = LongArithmeticMath.div(a, b);
-                break;
-            default:
+        try {
+            switch (operation) {
+                case "sum":
+                    res = LongArithmeticMath.sum(a, b);
+                    break;
+                case "sub":
+                    res = LongArithmeticMath.sub(a, b);
+                    break;
+                case "mul":
+                    res = LongArithmeticMath.mul(a, b);
+                    break;
+                case "div":
+                    res = LongArithmeticMath.div(a, b);
+                    break;
+                default:
                     throw new IOException("Несуществующая операция!");
+            }
+            String strRes = res.toString();
+            req.setAttribute("answer", strRes);
+        } catch (IOException e) {
+            req.setAttribute("exception", e.getMessage());
+        } catch (ArithmeticException e) {
+            req.setAttribute("exception", e.getMessage());
+        } catch (Exception e){
+            req.setAttribute("exception", "Неизвестная ошибка!");
         }
+
+
+        req.getRequestDispatcher("answer.jsp").forward(req, resp);
         //PrintWriter out = resp.getWriter();
         //out.print("<h1>Hello Servlet</h1>");
-        String strRes = res.toString();
-        //req.setAttribute("answer", strRes);
-        //req.getRequestDispatcher("answer.jsp").forward(req, resp);
-        resp.sendRedirect("/calc/answer.jsp?answer=" + strRes);
+        //resp.sendRedirect("/calc/answer.jsp?answer=" + strRes);
     }
     //http://localhost/calc?a=74237423846&b=89797897897987788&operation=mul
 }
