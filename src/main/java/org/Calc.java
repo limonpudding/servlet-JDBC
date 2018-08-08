@@ -29,6 +29,7 @@ public class Calc extends HttpServlet {
             URL url = new URL(req.getRequestURL().toString());
             if (url.getPath().equals("/calc")) {
                 req.getRequestDispatcher("input.jsp").forward(req, resp);
+                return;
             } else if (url.getPath().equals("/answer")) {
                 String a = req.getParameter("a");
                 String b = req.getParameter("b");
@@ -36,6 +37,7 @@ public class Calc extends HttpServlet {
                 res = calc(a, b, operation);
                 req.setAttribute("answer", res);
                 req.getRequestDispatcher("answer.jsp").forward(req, resp);
+                return;
             } else {
                 out.println("<!DOCTYPE HTML>");
                 out.println("<h3>Input /calc</h3>");
@@ -47,7 +49,7 @@ public class Calc extends HttpServlet {
         } catch (Exception e) {
             req.setAttribute("exception", "Unknown error!");
         }
-        //req.getRequestDispatcher("answer.jsp").forward(req, resp);
+        req.getRequestDispatcher("answer.jsp").forward(req, resp);
         //PrintWriter out = resp.getWriter();
         //out.print("<h1>Hello Servlet</h1>");
         //resp.sendRedirect("/calc/answer.jsp?answer=" + strRes);
