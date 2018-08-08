@@ -13,7 +13,7 @@ import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@WebServlet("/calc")
+
 public class Calc extends HttpServlet {
 
     public static String globalURL = "http://localhost/";
@@ -39,8 +39,7 @@ public class Calc extends HttpServlet {
                 req.getRequestDispatcher("answer.jsp").forward(req, resp);
                 return;
             } else {
-                out.println("<!DOCTYPE HTML>");
-                out.println("<h3>Input /calc</h3>");
+                req.getRequestDispatcher("rootPage.jsp").forward(req, resp);//Это типа стартовой страницы, если не подходит под остальные юрлы
             }
         } catch (IOException e) {
             req.setAttribute("exception", e.getMessage());
@@ -49,7 +48,7 @@ public class Calc extends HttpServlet {
         } catch (Exception e) {
             req.setAttribute("exception", "Unknown error!");
         }
-        req.getRequestDispatcher("answer.jsp").forward(req, resp);
+        req.getRequestDispatcher("answer.jsp").forward(req, resp);//Сюда уходит, если какя-то ошибка
         //PrintWriter out = resp.getWriter();
         //out.print("<h1>Hello Servlet</h1>");
         //resp.sendRedirect("/calc/answer.jsp?answer=" + strRes);

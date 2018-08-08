@@ -20,7 +20,7 @@
 </style>
 <body>
 <form action="answer" method="get">
-    <div  style="max-width: 540px; margin: auto; text-align: center">
+    <div style="max-width: 540px; margin: auto; text-align: center">
         <% String exception = request.getParameter("exception"); %>
         <c:choose>
             <c:when test="${not empty exception}">

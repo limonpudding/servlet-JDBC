@@ -1,9 +1,11 @@
 package org;
 
+import java.io.IOException;
+
 enum LongConst {
-    ZERO(new LongArithmeticImplList("0")),
+    ZERO(new LongArithmeticImpl("0")),
     ONE(new LongArithmeticImpl("1")),
-    TWO(new LongArithmeticImplList("2"));
+    TWO(new LongArithmeticImpl("2"));
 
     private LongArithmethic value;
 

@@ -2,6 +2,7 @@ package org;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,23 +13,40 @@ public class LongArithmeticImplList implements LongArithmethic {
 
     Sign sign = Sign.PLUS;
 
-    public LongArithmeticImplList(String number) {
+    private boolean isDigit(char x) {
+        if (x >= '0' && x <= '9') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public LongArithmeticImplList(String number) throws IOException {
         length = number.length();
         if (number.charAt(0) == '-') {
             sign = Sign.MINUS;
             for (int i = length - 1; i >= 1; --i) {
-                digits.add((byte) (number.charAt(i) - '0'));
+                if (isDigit(number.charAt(i)))
+                    digits.add((byte) (number.charAt(i) - '0'));
+                else
+                    throw new IOException("Incorrect long number");
             }
             length--;
         } else {
             if (number.charAt(0) == '+') {
                 for (int i = length - 1; i >= 1; --i) {
-                    digits.add((byte) (number.charAt(i) - '0'));
+                    if (isDigit(number.charAt(i)))
+                        digits.add((byte) (number.charAt(i) - '0'));
+                    else
+                        throw new IOException("Incorrect long number");
                 }
                 length--;
             } else {
                 for (int i = length - 1; i >= 0; --i) {
-                    digits.add((byte) (number.charAt(i) - '0'));
+                    if (isDigit(number.charAt(i)))
+                        digits.add((byte) (number.charAt(i) - '0'));
+                    else
+                        throw new IOException("Incorrect long number");
                 }
             }
         }
@@ -70,11 +88,11 @@ public class LongArithmeticImplList implements LongArithmethic {
         int i;
         for (i = digits.size() - 1; i >= 0; --i)
             if (digits.get(i) != 0)
-                return i+1;
+                return i + 1;
         return 0;
     }
 
-    public int getLengthMul(){
+    public int getLengthMul() {
         return digits.size();
     }
 
