@@ -3,7 +3,7 @@ package org;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CreatorRootPage extends AbstractPageCreatorFactory {
+public class CreatorRootPage extends AbstractPageFactory {
 
     public CreatorRootPage(HttpServletRequest req, HttpServletResponse resp) {
         page = new Page(req, resp);

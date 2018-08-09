@@ -4,16 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URL;
 
-public abstract class AbstractPageCreatorFactory {
+public abstract class AbstractPageFactory {
     protected Page page = null;
 
-    public Page getPage() {
-        return page;
-    }
+    //public AbstractPageFactory() {}
 
-    public AbstractPageCreatorFactory() {}
-
-    public static AbstractPageCreatorFactory getFactory(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public static AbstractPageFactory getFactory(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         URL url = new URL(req.getRequestURL().toString());
         String path = url.getPath();
         switch (path) {

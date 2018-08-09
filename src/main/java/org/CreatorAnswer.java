@@ -3,11 +3,8 @@ package org;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.util.List;
 
-public class CreatorAnswer extends AbstractPageCreatorFactory {
+public class CreatorAnswer extends AbstractPageFactory {
 
     public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp) {
         page = new Page(req, resp);
