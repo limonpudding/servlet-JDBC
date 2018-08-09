@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Калькулятор</title>
+    <title>Calculator</title>
 </head>
 <style>
     input[type=text], select {

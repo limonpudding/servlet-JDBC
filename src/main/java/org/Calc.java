@@ -10,7 +10,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -31,12 +33,17 @@ public class Calc extends HttpServlet {
                 req.getRequestDispatcher("input.jsp").forward(req, resp);
                 return;
             } else if (url.getPath().equals("/answer")) {
+                List<String> params = new ArrayList<>();
+                params.add("a");
+                params.add("b");
+                params.add("operation");
                 String a = req.getParameter("a");
                 String b = req.getParameter("b");
                 String operation = req.getParameter("operation");
                 res = calc(a, b, operation);
                 req.setAttribute("answer", res);
                 req.getRequestDispatcher("answer.jsp").forward(req, resp);
+                //new Dispatcher("answer.jsp", params).forward(req,resp)
                 return;
             } else {
                 req.getRequestDispatcher("rootPage.jsp").forward(req, resp);//Это типа стартовой страницы, если не подходит под остальные юрлы
@@ -71,6 +78,9 @@ public class Calc extends HttpServlet {
                 break;
             case "div":
                 res = LongArithmeticMath.div(a, b);
+                break;
+            case "fib":
+                res = new Fibonacci(Integer.parseInt(strA)).number;
                 break;
             default:
                 throw new IOException("Unexpected operation!");
