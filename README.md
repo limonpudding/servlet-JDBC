@@ -28,3 +28,7 @@
 14. [Действие по кнопке js](https://ru.stackoverflow.com/questions/14929/Действие-onclick-в-javascript)
 
 15. [Работа с формами js](https://htmlweb.ru/java/forms.php)
+
+16. [Bootstrap](https://getbootstrap.com/docs/4.1/components/forms/)
+
+17. [Начало bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
