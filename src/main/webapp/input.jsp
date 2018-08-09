@@ -21,6 +21,16 @@
         box-sizing: border-box;
     }
 
+    input[type=number], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
     input[type=submit] {
         width: 100%;
         background-color: #4CAF50;
@@ -143,10 +153,10 @@
         <input type="button" value="Clear!" OnClick="invisibleInterface();">
         <br>
         <label for="a" id="label1" style="display: none">Enter 1-st operator</label>
-        <input type="text" id="a" name="a" style="display: none"><br>
+        <input type="number" id="a" name="a" style="display: none"><br>
 
         <label for="b" id="label2" style="display: none">Enter 2-nd operator</label>
-        <input type="text" id="b" name="b" style="display: none"><br>
+        <input type="number" id="b" name="b" style="display: none"><br>
 
         <input type="text" id="operation" name="operation" style="display: none"><br>
 
