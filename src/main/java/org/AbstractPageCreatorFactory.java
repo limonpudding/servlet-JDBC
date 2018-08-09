@@ -2,13 +2,29 @@ package org;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URL;
 
 public abstract class AbstractPageCreatorFactory {
-    //TODO можно добавить HttpServletRequest и HttpServletResponse в качестве атрибутов, тогда buid без параметров...
-    public static AbstractPageCreatorFactory getFactory(HttpServletRequest request, HttpServletResponse response){
-        //TODO код, который вернёт нужную фабрику
-        return null;//new PageCreatorFactory();
+    protected Page page = null;
+
+    public Page getPage() {
+        return page;
     }
 
-    public abstract PageCreator build(HttpServletRequest req, HttpServletResponse resp);
+    public AbstractPageCreatorFactory() {}
+
+    public static AbstractPageCreatorFactory getFactory(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        URL url = new URL(req.getRequestURL().toString());
+        String path = url.getPath();
+        switch (path) {
+            case "/answer":
+                return new CreatorAnswer(req, resp);
+            case "/calc":
+                return new CreatorInput(req, resp);
+            default:
+                return new CreatorRootPage(req, resp);
+        }
+    }
+
+    public abstract void build() throws Exception;
 }

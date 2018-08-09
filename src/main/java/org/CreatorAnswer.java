@@ -7,12 +7,20 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
 
-public class CreatorAnswer implements PageCreator{
+public class CreatorAnswer extends AbstractPageCreatorFactory {
 
-    public void buildPage(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        String ans = calc(req.getParameter("a"), req.getParameter("b"), req.getParameter("operation"));
-        req.setAttribute("answer", ans);
-        req.getRequestDispatcher("answer.jsp").forward(req, resp);
+    public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp) {
+        page = new Page(req, resp);
+    }
+
+    public void build() throws Exception {
+        String ans = calc(
+                page.getRequest().getParameter("a"),
+                page.getRequest().getParameter("b"),
+                page.getRequest().getParameter("operation")
+        );
+        page.getRequest().setAttribute("answer", ans);
+        page.getRequest().getRequestDispatcher("answer.jsp").forward(page.getRequest(), page.getResponse());
     }
 
     private String calc(String strA, String strB, String operation) throws IOException {
