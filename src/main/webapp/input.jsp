@@ -66,43 +66,74 @@
 <div style="max-width: 540px; margin: auto;">
     <form action="answer" method="get">
         <script>
-            function visibleInterface(){
+            function isEmpty(str) {
+                if (str.trim() == '')
+                    return true;
+
+                return false;
+            }
+
+            function keyUp(e) {
+                if (isEmpty(document.getElementById("a").value) && isEmpty(document.getElementById("b").value))
+                    invisibleInterface();
+                if (isEmpty(document.getElementById("a").value) || isEmpty(document.getElementById("b").value)||(document.getElementById("operation").value==='fib' && isEmpty(document.getElementById("a").value)))
+                    document.getElementById("calcButton").style.display = 'none';
+                else
+                    document.getElementById("calcButton").style.display = 'block';
+            }
+
+            function visibleInterface() {
                 document.getElementById("a").style.display = 'block';
                 document.getElementById("b").style.display = 'block';
+                document.getElementById("a").value = '';
+                document.getElementById("b").value = '';
                 document.getElementById("label2").style.display = 'block';
                 document.getElementById("calcButton").style.display = 'block';
-                document.getElementById("label1").style.display='block';
+                document.getElementById("label1").style.display = 'block';
             }
-            function invisibleInterface(){
+
+            function invisibleInterface() {
                 document.getElementById("a").style.display = 'none';
                 document.getElementById("b").style.display = 'none';
                 document.getElementById("label2").style.display = 'none';
                 document.getElementById("calcButton").style.display = 'none';
-                document.getElementById("label1").style.display='none';
+                document.getElementById("label1").style.display = 'none';
             }
+
             function summation() {
                 visibleInterface();
                 document.getElementById("operation").value = 'sum';
+                document.getElementById("calcButton").style.display = 'none';
             }
+
             function subtraction() {
                 visibleInterface();
                 document.getElementById("operation").value = 'sub';
+                document.getElementById("calcButton").style.display = 'none';
             }
+
             function multiplication() {
                 visibleInterface();
                 document.getElementById("operation").value = 'mul';
+                document.getElementById("calcButton").style.display = 'none';
             }
+
             function division() {
                 visibleInterface();
                 document.getElementById("operation").value = 'div';
+                document.getElementById("calcButton").style.display = 'none';
             }
+
             function fibonacci() {
                 visibleInterface();
                 document.getElementById("label2").style.display = 'none';
                 document.getElementById("b").style.display = 'none';
                 document.getElementById("b").value = '1';
                 document.getElementById("operation").value = 'fib';
+                document.getElementById("calcButton").style.display = 'none';
             }
+
+            addEventListener("keyup", keyUp);
         </script>
         <input type="button" value="Summation!" OnClick="summation();">
         <input type="button" value="Subtraction!" OnClick="subtraction();">
