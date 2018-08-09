@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class Calc extends HttpServlet {
@@ -16,12 +17,13 @@ public class Calc extends HttpServlet {
         try {
             AbstractPageCreatorFactory factory = AbstractPageCreatorFactory.getFactory(req, resp);
             factory.build();
-            //builder.build(req, resp);
-            //builder.buildPage(req, resp);
         } catch (IOException | ArithmeticException e) {
             req.setAttribute("exception", e.getMessage());
+            resp.getWriter().println("Ошибка: " + e.getMessage());
+
         } catch (Exception e) {
             req.setAttribute("exception", "Unknown error!");
+            resp.getWriter().println("Error: unknown error");
         }
 
     }
