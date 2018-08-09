@@ -5,20 +5,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
 
 
 public class Calc extends HttpServlet {
+    private final PageCreatorFactory pageCreatorFactory = new PageCreatorFactory();
 
     public static String globalURL = "http://localhost/";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        AbstractPageCreatorFactory factory = AbstractPageCreatorFactory.getFactory(req, resp);
         try {
-            PageCreator pc = new PageCreatorImpl();
-            pc.PageBuilder(req, resp);
+            PageCreator builder = pageCreatorFactory.build(req, resp);
+            builder.buildePage(req, resp);
+            PageCreator pc = new CreatorAnswer();
+            pc.buildePage(req, resp);
         } catch (IOException | ArithmeticException e) {
             req.setAttribute("exception", e.getMessage());
         } catch (Exception e) {

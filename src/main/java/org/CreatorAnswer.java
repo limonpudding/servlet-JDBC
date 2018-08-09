@@ -7,9 +7,9 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
 
-public class PageCreatorImpl implements PageCreator{
+public class CreatorAnswer implements PageCreator{
 
-    public void PageBuilder(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public void buildePage(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         PrintWriter out = resp.getWriter();
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
