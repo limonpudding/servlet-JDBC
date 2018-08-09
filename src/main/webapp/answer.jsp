@@ -9,15 +9,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <style type="text/css">
+        <%@include file="css/bootstrap.css" %>
+        <%@include file="css/bootstrap-theme.css" %>
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Answer</title>
 </head>
-<style>
-    div {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
-</style>
 <body>
 <form action="answer" method="get">
     <div style="max-width: 540px; margin: auto; text-align: center">
@@ -32,5 +32,7 @@
         </c:choose>
     </div>
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

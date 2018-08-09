@@ -8,6 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style type="text/css">
+        <%@include file="css/bootstrap.css" %>
+        <%@include file="css/bootstrap-theme.css" %>
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calculator</title>
 </head>
 <style>
@@ -145,6 +151,22 @@
 
             addEventListener("keyup", keyUp);
         </script>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                Dropdown
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="summation()">Summation!</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="subtraction()">Subtraction!</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="multiplication()">Multiplication!</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="division()">Division!</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="fibonacci()">Fibonacci!</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="invisibleInterface()">Clear!</a></li>
+            </ul>
+        </div>
         <input type="button" value="Summation!" OnClick="summation();">
         <input type="button" value="Subtraction!" OnClick="subtraction();">
         <input type="button" value="Multiplication!" OnClick="multiplication();">
@@ -163,5 +185,7 @@
         <input type="submit" id="calcButton" value="Calculate" style="display: none"><br>
     </form>
 </div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap.js"></script>
 </body>
 </html>
