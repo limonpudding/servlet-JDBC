@@ -9,25 +9,10 @@ import java.util.List;
 
 public class CreatorAnswer implements PageCreator{
 
-    public void buildePage(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        PrintWriter out = resp.getWriter();
-        req.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html;charset=UTF-8");
-        URL url = new URL(req.getRequestURL().toString());
-        String path = url.getPath();
-        switch (path) {
-            case "/answer":
-                String ans = calc(req.getParameter("a"), req.getParameter("b"), req.getParameter("operation"));
-                req.setAttribute("answer", ans);
-                req.getRequestDispatcher("answer.jsp").forward(req, resp);
-                break;
-            case "/calc":
-                req.getRequestDispatcher("input.jsp").forward(req, resp);
-                break;
-            default:
-                req.getRequestDispatcher("rootPage.jsp").forward(req, resp);
-                break;
-        }
+    public void buildPage(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String ans = calc(req.getParameter("a"), req.getParameter("b"), req.getParameter("operation"));
+        req.setAttribute("answer", ans);
+        req.getRequestDispatcher("answer.jsp").forward(req, resp);
     }
 
     private String calc(String strA, String strB, String operation) throws IOException {
