@@ -19,6 +19,6 @@
 
 10. [Скрыть расширение JSP с веб-страниц](https://code.i-harness.com/ru/q/61c61d)
 
-11. []()
+11. [DoGet и doPost в сервлетах](http://qaru.site/questions/4834/doget-and-dopost-in-servlets)
 
-12. []()
+12. [URL parsing in Java](https://stackoverflow.com/questions/21545912/url-parsing-in-java)
