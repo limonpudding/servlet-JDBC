@@ -3,6 +3,7 @@ package org;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -13,25 +14,30 @@ public class CreatorAnswer extends AbstractPageFactory {
     }
 
     public void build() throws Exception {
+
+        HttpSession session = page.getRequest().getSession();
+
+
         String ans = calc(
                 page.getRequest().getParameter("a"),
                 page.getRequest().getParameter("b"),
                 page.getRequest().getParameter("operation")
         );
-        StringBuilder operationsHistory = new StringBuilder();
-
-        page.getResponse().addCookie(new Cookie(
-                UUID.randomUUID().toString(),page.getRequest().getParameter("a") +
-                "_"+page.getRequest().getParameter("operation")+
-                "_"+page.getRequest().getParameter("b")+
-                "="+ans
-                )
-        );
-
-        for(Cookie cookie:page.getRequest().getCookies()){
-            operationsHistory.append(cookie.getValue()).append("\n");
+        String operationsHistory;
+        if (session.getAttribute(session.getId())!=null) {
+            operationsHistory = session.getAttribute(session.getId()).toString();
         }
-        page.getRequest().setAttribute("strOperationsHistory", operationsHistory.toString());
+        else{
+            operationsHistory = "";
+        }
+        String oper = page.getRequest().getParameter("a") +
+                " " + page.getRequest().getParameter("operation") +
+                " " + page.getRequest().getParameter("b") +
+                "=" + ans;
+
+        session.setAttribute(session.getId(),operationsHistory + oper + "\n");
+
+        page.getRequest().setAttribute("strOperationsHistory", operationsHistory + oper + "\n");
 
         page.getRequest().setAttribute("answer", ans);
         page.getRequest().getRequestDispatcher("answer.jsp").forward(page.getRequest(), page.getResponse());
