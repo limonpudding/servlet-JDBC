@@ -23,7 +23,8 @@ public class CreatorAnswer extends AbstractPageFactory {
         page.getResponse().addCookie(new Cookie(
                 UUID.randomUUID().toString(),page.getRequest().getParameter("a") +
                 "_"+page.getRequest().getParameter("operation")+
-                "_"+page.getRequest().getParameter("b")
+                "_"+page.getRequest().getParameter("b")+
+                "="+ans
                 )
         );
 
