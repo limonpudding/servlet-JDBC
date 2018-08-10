@@ -1,8 +1,10 @@
 package org;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
@@ -16,6 +18,20 @@ public class CreatorAnswer extends AbstractPageFactory {
                 page.getRequest().getParameter("b"),
                 page.getRequest().getParameter("operation")
         );
+        StringBuilder operationsHistory = new StringBuilder();
+
+        page.getResponse().addCookie(new Cookie(
+                UUID.randomUUID().toString(),page.getRequest().getParameter("a") +
+                "_"+page.getRequest().getParameter("operation")+
+                "_"+page.getRequest().getParameter("b")
+                )
+        );
+
+        for(Cookie cookie:page.getRequest().getCookies()){
+            operationsHistory.append(cookie.getValue()).append("\n");
+        }
+        page.getRequest().setAttribute("strOperationsHistory", operationsHistory.toString());
+
         page.getRequest().setAttribute("answer", ans);
         page.getRequest().getRequestDispatcher("answer.jsp").forward(page.getRequest(), page.getResponse());
     }

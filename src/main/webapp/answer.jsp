@@ -24,9 +24,13 @@
             </c:when>
             <c:otherwise>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Answer:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">${answer}</textarea>
+                    <label for="exampleFormControlTextarea1">Ответ:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10">${answer}</textarea>
                     <a href="http://localhost/calc">Калькулятор</a>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">История операций:</label>
+                    <textarea class="form-control" id="exampleForm" rows="5">${strOperationsHistory}</textarea>
                 </div>
             </c:otherwise>
         </c:choose>
