@@ -7,15 +7,15 @@
             <c:when test="${not empty exception}">
                 <h3>Error: ${exception}</h3>
             </c:when>
-            <c:otherwise>
+            <c:otherwise><%--@elvariable id="answer" type="java"--%>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Ответ:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10">${answer}</textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8">${answer}</textarea>
                     <a href="http://localhost/calc">Калькулятор</a>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">История операций:</label>
-                    <textarea class="form-control" id="exampleForm" rows="5">${strOperationsHistory}</textarea>
+                    <textarea class="form-control" id="exampleForm" rows="4">${strOperationsHistory}</textarea>
                 </div>
             </c:otherwise>
         </c:choose>
