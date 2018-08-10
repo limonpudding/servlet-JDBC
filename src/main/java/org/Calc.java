@@ -22,6 +22,8 @@ public class Calc extends HttpServlet {
             req.setAttribute("exception", e.getMessage());
         } catch (Exception e) {
             req.setAttribute("exception", "Unknown error!");
+            resp.getWriter().println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
