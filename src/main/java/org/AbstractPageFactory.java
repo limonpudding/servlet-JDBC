@@ -17,8 +17,10 @@ public abstract class AbstractPageFactory {
                 return new CreatorAnswer(req, resp);
             case "/calc":
                 return new CreatorInput(req, resp);
+            case "/about":
+                return new CreatorAbout(req, resp);
             default:
-                return new CreatorRootPage(req, resp);
+                return new CreatorHomePage(req, resp);
         }
     }
 

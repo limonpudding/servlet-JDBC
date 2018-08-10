@@ -38,3 +38,5 @@
 19. [Сессии Servlet](https://proselyte.net/tutorials/servlets/session/)
 
 20. [Как получить значение атрибута jsp](https://ru.stackoverflow.com/questions/534720/Как-получить-значение-атрибута)
+
+21. [Struts 2 Tiles Integration Tutorial](https://dzone.com/tutorials/java/struts-2/struts-2-example/struts-2-tiles-example-1.html)
