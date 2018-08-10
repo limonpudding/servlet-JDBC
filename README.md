@@ -24,3 +24,17 @@
 12. [URL parsing in Java](https://stackoverflow.com/questions/21545912/url-parsing-in-java)
 
 13. [SOLID объектно-ориентированное программирование](https://ru.wikipedia.org/wiki/SOLID_(%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BD%D0%BE-%D0%BE%D1%80%D0%B8%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5))
+
+14. [Действие по кнопке js](https://ru.stackoverflow.com/questions/14929/Действие-onclick-в-javascript)
+
+15. [Работа с формами js](https://htmlweb.ru/java/forms.php)
+
+16. [Bootstrap](https://getbootstrap.com/docs/4.1/components/forms/)
+
+17. [Начало bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+
+18. [jQuery](https://itchief.ru/lessons/javascript/)
+
+19. [Сессии Servlet](https://proselyte.net/tutorials/servlets/session/)
+
+20. [Как получить значение атрибута jsp](https://ru.stackoverflow.com/questions/534720/Как-получить-значение-атрибута)

@@ -1,24 +1,44 @@
 package org;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.util.List;
+import java.util.UUID;
 
-public class CreatorAnswer extends AbstractPageCreatorFactory {
+public class CreatorAnswer extends AbstractPageFactory {
 
     public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp) {
         page = new Page(req, resp);
     }
 
     public void build() throws Exception {
+
+        HttpSession session = page.getRequest().getSession();
+
+
         String ans = calc(
                 page.getRequest().getParameter("a"),
                 page.getRequest().getParameter("b"),
                 page.getRequest().getParameter("operation")
         );
+        String operationsHistory;
+        if (session.getAttribute(session.getId())!=null) {
+            operationsHistory = session.getAttribute(session.getId()).toString();
+        }
+        else{
+            operationsHistory = "";
+        }
+        String oper = page.getRequest().getParameter("a") +
+                " " + page.getRequest().getParameter("operation") +
+                " " + page.getRequest().getParameter("b") +
+                "=" + ans;
+
+        session.setAttribute(session.getId(),operationsHistory + oper + "\n");
+
+        page.getRequest().setAttribute("strOperationsHistory", operationsHistory + oper + "\n");
+
         page.getRequest().setAttribute("answer", ans);
         page.getRequest().getRequestDispatcher("answer.jsp").forward(page.getRequest(), page.getResponse());
     }
