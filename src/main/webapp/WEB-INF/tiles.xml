@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="base.definition" template="/WEB-INF/layouts/classic.jsp">
+        <put-attribute name="title" value="Tiles tutorial homepage" />
+        <put-attribute name="cssFile" value="/WEB-INF/tiles/cssFile.jsp" />
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/tiles/body.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    <!-- Input Page  -->
+    <definition name="inputPage" extends="base.definition">
+        <put-attribute name="title" value="Calculator" />
+        <put-attribute name="body" value="/WEB-INF/tiles/test.jsp" />
+    </definition>
+</tiles-definitions>
