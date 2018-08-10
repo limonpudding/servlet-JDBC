@@ -32,3 +32,7 @@
 16. [Bootstrap](https://getbootstrap.com/docs/4.1/components/forms/)
 
 17. [Начало bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+
+18. [jQuery](https://itchief.ru/lessons/javascript/)
+
+19. [Сессии Servlet](https://proselyte.net/tutorials/servlets/session/)
