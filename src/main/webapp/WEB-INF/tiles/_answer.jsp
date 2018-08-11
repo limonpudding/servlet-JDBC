@@ -15,7 +15,11 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">История операций:</label>
-                    <textarea class="form-control" id="exampleForm" rows="4">${strOperationsHistory}</textarea>
+                    <textarea class="form-control" id="exampleForm" rows="4">
+                        <c:forEach var="operation" items="${operationsHistory}">${operation}
+                        </c:forEach>
+                            <%--${strOperationsHistory}--%>
+                    </textarea>
                 </div>
             </c:otherwise>
         </c:choose>

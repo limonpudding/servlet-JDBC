@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class CreatorAnswer extends AbstractPageFactory {
@@ -23,21 +26,20 @@ public class CreatorAnswer extends AbstractPageFactory {
                 page.getRequest().getParameter("b"),
                 page.getRequest().getParameter("operation")
         );
-        String operationsHistory;
-        if (session.getAttribute(session.getId())!=null) {
-            operationsHistory = session.getAttribute(session.getId()).toString();
-        }
-        else{
-            operationsHistory = "";
-        }
+        ArrayList<String> operationsHistory;
+        if (session.getAttribute(session.getId()) == null)
+            operationsHistory = new ArrayList<>();
+        else
+            operationsHistory = new ArrayList<>(Arrays.asList(session.getAttribute(session.getId()).toString().replaceAll("^\\[|\\]$|\\s+", "").trim().split(",")));
         String oper = page.getRequest().getParameter("a") +
                 " " + page.getRequest().getParameter("operation") +
                 " " + page.getRequest().getParameter("b") +
                 "=" + ans;
+        operationsHistory.add(0, oper);
 
-        session.setAttribute(session.getId(),operationsHistory + oper + "\n");
+        session.setAttribute(session.getId(), operationsHistory);
 
-        page.getRequest().setAttribute("strOperationsHistory", operationsHistory + oper + "\n");
+        page.getRequest().setAttribute("operationsHistory", operationsHistory);
 
         page.getRequest().setAttribute("answer", ans);
         page.getRequest().getRequestDispatcher("answer.jsp").forward(page.getRequest(), page.getResponse());
