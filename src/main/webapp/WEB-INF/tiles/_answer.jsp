@@ -5,7 +5,7 @@
         <% String exception = request.getParameter("exception"); %>
         <c:choose>
             <c:when test="${not empty exception}">
-                <h3>Error: ${exception}</h3>
+                <h3>Ошибка: ${exception}</h3>
             </c:when>
             <c:otherwise><%--@elvariable id="answer" type="java"--%>
                 <div class="form-group">

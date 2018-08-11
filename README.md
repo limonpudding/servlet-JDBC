@@ -40,3 +40,5 @@
 20. [Как получить значение атрибута jsp](https://ru.stackoverflow.com/questions/534720/Как-получить-значение-атрибута)
 
 21. [Struts 2 Tiles Integration Tutorial](https://dzone.com/tutorials/java/struts-2/struts-2-example/struts-2-tiles-example-1.html)
+
+22. [JSP - Standard Tag Library (встроенные возможности)](https://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm)
