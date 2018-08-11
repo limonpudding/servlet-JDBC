@@ -93,12 +93,12 @@
                 Выберите операцию
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" onclick="summation()">Summation!</a>
-                <a class="dropdown-item" href="#" onclick="subtraction()">Subtraction!</a>
-                <a class="dropdown-item" href="#" onclick="multiplication()">Multiplication!</a>
-                <a class="dropdown-item" href="#" onclick="division()">Division!</a>
-                <a class="dropdown-item" href="#" onclick="fibonacci()">Fibonacci!</a>
-                <a class="dropdown-item" href="#" onclick="invisibleInterface()">Clear!</a>
+                <a class="dropdown-item" href="#" onclick="summation()">Сложение!</a>
+                <a class="dropdown-item" href="#" onclick="subtraction()">Вычитание!</a>
+                <a class="dropdown-item" href="#" onclick="multiplication()">Умножение!</a>
+                <a class="dropdown-item" href="#" onclick="division()">Деление!</a>
+                <a class="dropdown-item" href="#" onclick="fibonacci()">Фибоначчи!</a>
+                <a class="dropdown-item" href="#" onclick="invisibleInterface()">Очистка!</a>
             </div>
         </div>
         <label for="dropdownMenuButton" id="labelOperation"></label>
