@@ -14,8 +14,6 @@ public class Calc extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         try {
-            System.out.println(req.getRemoteAddr());
-            System.out.println(req.getLocalAddr());
             AbstractPageFactory.getFactory(req, resp).build();
         } catch (IOException | ArithmeticException e) {
             req.setAttribute("exception", e.getMessage());

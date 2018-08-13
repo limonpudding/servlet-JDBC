@@ -15,13 +15,10 @@ public class LoggerFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest)servletRequest;
-        HttpServletResponse resp = (HttpServletResponse)servletResponse;
-        System.out.println("Пользователь с IP: " + servletRequest.getRemoteAddr() + " зашёл на страницу "+req.getRequestURL());
-        if (!req.getSession().isNew() && req.getRequestURL().toString().equals("http://localhost/")){
-           req.getRequestDispatcher("input.jsp").forward(req, resp);
-       }
-       filterChain.doFilter(servletRequest,servletResponse);
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+        System.out.println("Пользователь с IP: " + servletRequest.getRemoteAddr() + " зашёл на страницу " + req.getRequestURL());
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

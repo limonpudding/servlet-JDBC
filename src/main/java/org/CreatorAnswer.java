@@ -2,10 +2,13 @@ package org;
 
 import com.google.inject.Injector;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
@@ -23,7 +26,7 @@ public class CreatorAnswer extends AbstractPageFactory {
     public void build() throws Exception {
 
         HttpSession session = page.getRequest().getSession();
-
+        ServletContext context = session.getServletContext();
 
         String a = page.getRequest().getParameter("a");
         String b = page.getRequest().getParameter("b");
@@ -34,11 +37,13 @@ public class CreatorAnswer extends AbstractPageFactory {
         OperationsHistory operationsHistory = new OperationsHistory();
         operationsHistory.getHistory(session);
 
-        org.Operation oper = new org.Operation(a,b,operation,ans);
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
+
+        org.Operation oper = new org.Operation(formatForDateNow.format(new Date()),a,b,operation,ans);
 
         operationsHistory.addOperation(oper);
 
-        session.setAttribute(session.getId(), operationsHistory.getHistory(session));
+        session.getServletContext().setAttribute(session.getId(), operationsHistory.getHistory(session));
 
         page.getRequest().setAttribute("operationsHistory", operationsHistory.getHistory(session));
         page.getRequest().setAttribute("answer", ans);

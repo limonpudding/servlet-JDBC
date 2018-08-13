@@ -9,7 +9,7 @@ class OperationsHistory {
     LinkedList<Operation> operationsHistory;
 
     public LinkedList<Operation> getHistory(HttpSession session) {
-        Object attribute = session.getAttribute(session.getId());
+        Object attribute = session.getServletContext().getAttribute(session.getId());
         if (!(attribute != null && attribute instanceof Collection)) {
             operationsHistory = new LinkedList<>();
         } else {
