@@ -12,6 +12,7 @@ public class LongArithmeticMath {
         n = dimension;
     }
 
+    @Inject
     public static LongArithmethic sum(LongArithmethic addendum, LongArithmethic term) {
         LongArithmethic a = addendum;
         LongArithmethic b = term;
