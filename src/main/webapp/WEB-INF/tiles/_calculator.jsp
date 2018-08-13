@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8" language="java" %>
-<div style="margin: auto; ">
+<div class="container">
     <form action="answer" method="get">
         <script>
             function isEmpty(str) {

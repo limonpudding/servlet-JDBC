@@ -9,8 +9,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <tiles:insertAttribute name="cssFile"/>
-<body style="background-color: #f2f2f2">
-<div class="wrapper container" style="font-family: 'Segoe UI'; padding: 0 0 20px 0; height: 100%">
+<body style="font-family: 'Segoe UI'; background-color: #f2f2f2">
     <header>
             <tiles:insertAttribute name="header"/>
     </header>
@@ -20,9 +19,9 @@
         </div>
     </div>
 </div>
-    <footer>
+
             <tiles:insertAttribute name="footer"/>
-    </footer>
+
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

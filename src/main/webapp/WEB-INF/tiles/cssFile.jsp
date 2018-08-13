@@ -1,4 +1,12 @@
 <style>
+    html {
+        position: relative;
+    }
+
+    body {
+        margin-bottom: 80px;
+    }
+
     input[type=text], select {
         width: 100%;
         padding: 12px 20px;
