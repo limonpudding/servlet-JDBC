@@ -1,10 +1,7 @@
 package org;
 
-import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,8 +9,11 @@ import java.io.IOException;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
-    public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp) {
+    private Injector injector;
+
+    public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp, Injector injector) {
         page = new Page(req, resp);
+        this.injector = injector;
     }
 
     public void build() throws Exception {
@@ -42,7 +42,6 @@ public class CreatorAnswer extends AbstractPageFactory {
     }
 
     private String calc(String strA, String strB, String operation) throws IOException {
-        Injector injector = Guice.createInjector(new LongArithmeticModule());
         LongArithmethic res;
         LongArithmethic a = injector.getInstance(LongArithmethic.class);
         LongArithmethic b = injector.getInstance(LongArithmethic.class);

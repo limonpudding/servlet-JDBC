@@ -1,11 +1,15 @@
 package org;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URL;
 
 public abstract class AbstractPageFactory {
     protected Page page = null;
+    private static Injector injector = Guice.createInjector(new LongArithmeticModule());
 
     //public AbstractPageFactory() {}
 
@@ -14,7 +18,7 @@ public abstract class AbstractPageFactory {
         String path = url.getPath();
         switch (path) {
             case "/answer":
-                return new CreatorAnswer(req, resp);
+                return new CreatorAnswer(req, resp, injector);
             case "/calc":
                 return new CreatorInput(req, resp);
             case "/about":

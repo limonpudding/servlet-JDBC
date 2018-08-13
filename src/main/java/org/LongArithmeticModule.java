@@ -6,6 +6,6 @@ public class LongArithmeticModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(LongArithmethic.class).to(LongArithmeticImpl.class);
+        bind(LongArithmethic.class).to(LongArithmeticImplList.class);
     }
 }
