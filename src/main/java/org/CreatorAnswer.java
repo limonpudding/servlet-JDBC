@@ -2,6 +2,7 @@ package org;
 
 import com.google.inject.Injector;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +24,7 @@ public class CreatorAnswer extends AbstractPageFactory {
     public void build() throws Exception {
 
         HttpSession session = page.getRequest().getSession();
-
+        ServletContext context = session.getServletContext();
 
         String a = page.getRequest().getParameter("a");
         String b = page.getRequest().getParameter("b");
@@ -38,7 +39,7 @@ public class CreatorAnswer extends AbstractPageFactory {
 
         operationsHistory.addOperation(oper);
 
-        session.setAttribute(session.getId(), operationsHistory.getHistory(session));
+        session.getServletContext().setAttribute(session.getId(), operationsHistory.getHistory(session));
 
         page.getRequest().setAttribute("operationsHistory", operationsHistory.getHistory(session));
         page.getRequest().setAttribute("answer", ans);
