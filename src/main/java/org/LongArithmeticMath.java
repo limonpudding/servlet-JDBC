@@ -1,6 +1,7 @@
 package org;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 import java.util.Stack;
 
@@ -14,9 +15,10 @@ public class LongArithmeticMath {
 
     @Inject
     public static LongArithmethic sum(LongArithmethic addendum, LongArithmethic term) {
+        Injector injector = CreatorAnswer.getInjector();
         LongArithmethic a = addendum;
         LongArithmethic b = term;
-        LongArithmethic result = new LongArithmeticImplList();
+        LongArithmethic result = injector.getInstance(LongArithmethic.class);
         result.setSign(a.getSign());
         if (a.getSign() == Sign.PLUS && b.getSign() == Sign.MINUS) {
             b.setSign(Sign.PLUS);
@@ -47,9 +49,10 @@ public class LongArithmeticMath {
      */
     @Inject
     public static LongArithmethic mul(LongArithmethic multiplied, LongArithmethic factor) {
+        Injector injector = CreatorAnswer.getInjector();
         LongArithmethic a = multiplied;
         LongArithmethic b = factor;
-        LongArithmethic result = new LongArithmeticImplList();
+        LongArithmethic result = injector.getInstance(LongArithmethic.class);
         if (a.getSign() != b.getSign()) {
             result.setSign(Sign.MINUS);
         }
@@ -88,6 +91,7 @@ public class LongArithmeticMath {
      */
     @Inject
     public static LongArithmethic sub(LongArithmethic minuend, LongArithmethic subtrahend) {
+        Injector injector = CreatorAnswer.getInjector();
         LongArithmethic a = minuend;
         LongArithmethic b = subtrahend;
         if (a.getSign() == Sign.PLUS && b.getSign() == Sign.MINUS) {
@@ -106,7 +110,7 @@ public class LongArithmeticMath {
         }
 
         int maxLength = a.getLength() > b.getLength() ? a.getLength() : b.getLength();
-        LongArithmethic c = new LongArithmeticImplList();
+        LongArithmethic c = injector.getInstance(LongArithmethic.class);
 
         if (a.compareTo(b) == -1) {
             LongArithmethic temp = a;

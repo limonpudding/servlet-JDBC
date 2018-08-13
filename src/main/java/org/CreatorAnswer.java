@@ -9,7 +9,11 @@ import java.io.IOException;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
-    private Injector injector;
+    private static Injector injector;
+
+    public static Injector getInjector() {
+        return injector;
+    }
 
     public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp, Injector injector) {
         page = new Page(req, resp);
