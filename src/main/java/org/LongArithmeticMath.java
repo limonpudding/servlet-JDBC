@@ -12,6 +12,7 @@ public class LongArithmeticMath {
         n = dimension;
     }
 
+    @Inject
     public static LongArithmethic sum(LongArithmethic addendum, LongArithmethic term) {
         LongArithmethic a = addendum;
         LongArithmethic b = term;
@@ -44,6 +45,7 @@ public class LongArithmeticMath {
      * @param factor     второй множитель
      * @return результат умножения
      */
+    @Inject
     public static LongArithmethic mul(LongArithmethic multiplied, LongArithmethic factor) {
         LongArithmethic a = multiplied;
         LongArithmethic b = factor;
@@ -84,6 +86,7 @@ public class LongArithmeticMath {
      * @param subtrahend Вычетаемое значение
      * @return Разность
      */
+    @Inject
     public static LongArithmethic sub(LongArithmethic minuend, LongArithmethic subtrahend) {
         LongArithmethic a = minuend;
         LongArithmethic b = subtrahend;
@@ -145,6 +148,7 @@ public class LongArithmeticMath {
      * @param b Делитель
      * @return Результат деления без остатка
      */
+    @Inject
     public static LongArithmethic div(LongArithmethic a, LongArithmethic b) {
         LongArithmethic result;
         Sign sign = Sign.PLUS;
