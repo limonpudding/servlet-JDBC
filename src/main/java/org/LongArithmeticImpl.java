@@ -46,6 +46,30 @@ public class LongArithmeticImpl implements LongArithmethic {//реализаци
     public byte getDigit(int index) {
         return digits[index];
     }
+    @Override
+    public void setValue(String number) {
+        length = number.length();
+        int j = 0;
+        if (number.charAt(0) == '-') {
+            sign = Sign.MINUS;
+            for (int i = length - 1; i >= 1; --i)
+                digits[j++] = (byte) (number.charAt(i) - '0');
+            length--;
+        } else {
+            if (number.charAt(0) == '+') {
+                for (int i = length - 1; i >= 1; --i)
+                    digits[j++] = (byte) (number.charAt(i) - '0');
+                length--;
+            } else {
+                for (int i = length - 1; i >= 0; --i)
+                    digits[j++] = (byte) (number.charAt(i) - '0');
+            }
+        }
+    }
+
+    public byte getDigit(int index) {
+        return digits[index];
+    }
 
     public int getLengthMul() {
         int i;
