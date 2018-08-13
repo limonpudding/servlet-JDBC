@@ -1,11 +1,9 @@
 package org;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
@@ -18,29 +16,22 @@ public class CreatorAnswer extends AbstractPageFactory {
         HttpSession session = page.getRequest().getSession();
 
 
-        String ans = calc(
-                page.getRequest().getParameter("a"),
-                page.getRequest().getParameter("b"),
-                page.getRequest().getParameter("operation")
-        );
-        Stack<String> operationsHistory;
-        Object attribute = session.getAttribute(session.getId());
-        if (!(attribute != null && attribute instanceof Collection)) {
-            operationsHistory = new Stack<>();
-        } else {
-            operationsHistory = (Stack<String>) attribute;
-        }
-        //TODO завести класс для хранения истории
-        String oper = page.getRequest().getParameter("a") +
-                " " + page.getRequest().getParameter("operation") +
-                " " + page.getRequest().getParameter("b") +
-                "=" + ans;
-        operationsHistory.push(oper);
+        String a = page.getRequest().getParameter("a");
+        String b = page.getRequest().getParameter("b");
+        String operation = page.getRequest().getParameter("operation");
 
-        session.setAttribute(session.getId(), operationsHistory);
+        String ans = calc(a, b, operation);
 
-        page.getRequest().setAttribute("operationsHistory", operationsHistory);
+        OperationsHistory operationsHistory = new OperationsHistory();
+        operationsHistory.getHistory(session);
 
+        org.Operation oper = new org.Operation(a,b,operation,ans);
+
+        operationsHistory.addOperation(oper);
+
+        session.setAttribute(session.getId(), operationsHistory.getHistory(session));
+
+        page.getRequest().setAttribute("operationsHistory", operationsHistory.getHistory(session));
         page.getRequest().setAttribute("answer", ans);
         page.getRequest().getRequestDispatcher("answer.jsp").forward(page.getRequest(), page.getResponse());
     }

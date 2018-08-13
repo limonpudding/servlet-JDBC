@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LongArithmeticImplList implements LongArithmethic {
 
-    private List<Byte> digits = new ArrayList<Byte>(); //TODO в чём минус использования ArrayList в этой задаче
+    private List<Byte> digits = new ArrayList<Byte>();
     private int length = 1;
 
     Sign sign = Sign.PLUS;

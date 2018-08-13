@@ -1,12 +1,14 @@
 package org;
 
+import java.io.IOException;
+
 public class Fibonacci {
     /**
      * Конструктор. устанавливает значение указанного числа фибоначчи в number
      * @param x x-ое число фибоначчи
      */
     public LongArithmethic number;
-    public Fibonacci(int x){
+    public Fibonacci(int x) throws IOException {
         LongArithmethic prev = new LongArithmeticImpl("1");
         LongArithmethic current = new LongArithmeticImpl("1");
         LongArithmethic next = new LongArithmeticImpl("2");
