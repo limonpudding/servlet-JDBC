@@ -43,9 +43,6 @@ public class LongArithmeticImpl implements LongArithmethic {//реализаци
         length = 0;
     }
 
-    public byte getDigit(int index) {
-        return digits[index];
-    }
     @Override
     public void setValue(String number) {
         length = number.length();
