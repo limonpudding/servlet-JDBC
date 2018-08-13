@@ -8,10 +8,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URL;
 
 public abstract class AbstractPageFactory {
-    protected Page page = null;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+
+    protected Lazy<Page> page = new Lazy<Page>() {
+        @Override
+        protected Page setValue() {
+            return new Page(request, response);
+        }
+    };
+
+
     private static Injector injector = Guice.createInjector(new LongArithmeticModule());
 
+
     //public AbstractPageFactory() {}
+    protected AbstractPageFactory(HttpServletRequest req, HttpServletResponse resp){
+        this.request = req;
+        this.response = resp;
+    }
 
     public static AbstractPageFactory getFactory(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         URL url = new URL(req.getRequestURL().toString());

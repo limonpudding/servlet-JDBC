@@ -16,7 +16,7 @@ public class CreatorAnswer extends AbstractPageFactory {
     }
 
     public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp, Injector injector) {
-        page = new Page(req, resp);
+        super(req, resp);
         this.injector = injector;
     }
 
