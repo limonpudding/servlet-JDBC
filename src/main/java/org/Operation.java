@@ -15,6 +15,8 @@ class Operation {
 
     @Override
     public String toString() {
+        if (operation.equals("fib"))
+            return operation + "(" + a + ") = " + result;
         return a + " " + operation + " " + b + " = " + result;
     }
 }
