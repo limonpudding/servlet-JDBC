@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
@@ -35,7 +37,9 @@ public class CreatorAnswer extends AbstractPageFactory {
         OperationsHistory operationsHistory = new OperationsHistory();
         operationsHistory.getHistory(session);
 
-        org.Operation oper = new org.Operation(a,b,operation,ans);
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
+
+        org.Operation oper = new org.Operation(formatForDateNow.format(new Date()),a,b,operation,ans);
 
         operationsHistory.addOperation(oper);
 
