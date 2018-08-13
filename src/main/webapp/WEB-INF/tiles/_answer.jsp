@@ -10,12 +10,12 @@
             <c:otherwise><%--@elvariable id="answer" type="java"--%>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Ответ:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8">${answer}</textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" readonly>${answer}</textarea>
                     <a href="http://localhost/calc">Калькулятор</a>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">История операций:</label>
-                    <textarea class="form-control" id="exampleForm" rows="4">
+                    <textarea class="form-control" id="exampleForm" rows="4" readonly>
                         <c:forEach var="operation" items="${operationsHistory}">${operation.toString()}
                         </c:forEach>
                             <%--${strOperationsHistory}--%>
