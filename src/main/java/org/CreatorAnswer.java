@@ -5,10 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
@@ -26,16 +23,19 @@ public class CreatorAnswer extends AbstractPageFactory {
                 page.getRequest().getParameter("b"),
                 page.getRequest().getParameter("operation")
         );
-        ArrayList<String> operationsHistory;
-        if (session.getAttribute(session.getId()) == null)
-            operationsHistory = new ArrayList<>();
-        else
-            operationsHistory = new ArrayList<>(Arrays.asList(session.getAttribute(session.getId()).toString().replaceAll("^\\[|\\]$|\\s+", "").trim().split(",")));
+        Stack<String> operationsHistory;
+        Object attribute = session.getAttribute(session.getId());
+        if (!(attribute != null && attribute instanceof Collection)) {
+            operationsHistory = new Stack<>();
+        } else {
+            operationsHistory = (Stack<String>) attribute;
+        }
+        //TODO завести класс для хранения истории
         String oper = page.getRequest().getParameter("a") +
                 " " + page.getRequest().getParameter("operation") +
                 " " + page.getRequest().getParameter("b") +
                 "=" + ans;
-        operationsHistory.add(0, oper);
+        operationsHistory.push(oper);
 
         session.setAttribute(session.getId(), operationsHistory);
 
