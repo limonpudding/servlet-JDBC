@@ -28,6 +28,14 @@
         <listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
     </listener>
 
+    <listener>
+        <listener-class>org.ListenerAttributes</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.ListenerHttpSessionAttributes</listener-class>
+    </listener>
+
     <context-param>
         <param-name> org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG </param-name>
         <param-value>/WEB-INF/tiles.xml</param-value>
