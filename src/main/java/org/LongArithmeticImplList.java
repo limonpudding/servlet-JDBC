@@ -1,5 +1,6 @@
 package org;
 
+import com.google.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -53,6 +54,39 @@ public class LongArithmeticImplList implements LongArithmethic {
     }
 
     public LongArithmeticImplList() {
+
+    }
+
+    @Override
+    public void setValue(String number) throws IOException {
+        length = number.length();
+        if (number.charAt(0) == '-') {
+            sign = Sign.MINUS;
+            for (int i = length - 1; i >= 1; --i) {
+                if (isDigit(number.charAt(i)))
+                    digits.add((byte) (number.charAt(i) - '0'));
+                else
+                    throw new IOException("Incorrect long number");
+            }
+            length--;
+        } else {
+            if (number.charAt(0) == '+') {
+                for (int i = length - 1; i >= 1; --i) {
+                    if (isDigit(number.charAt(i)))
+                        digits.add((byte) (number.charAt(i) - '0'));
+                    else
+                        throw new IOException("Incorrect long number");
+                }
+                length--;
+            } else {
+                for (int i = length - 1; i >= 0; --i) {
+                    if (isDigit(number.charAt(i)))
+                        digits.add((byte) (number.charAt(i) - '0'));
+                    else
+                        throw new IOException("Incorrect long number");
+                }
+            }
+        }
     }
 
     public byte[] getDigits() {

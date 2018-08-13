@@ -1,5 +1,9 @@
 package org;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,9 +50,15 @@ public class CreatorAnswer extends AbstractPageFactory {
     }
 
     private String calc(String strA, String strB, String operation) throws IOException {
+        Injector injector = Guice.createInjector(new LongArithmeticModule());
         LongArithmethic res;
-        LongArithmethic a = new LongArithmeticImplList(strA);
-        LongArithmethic b = new LongArithmeticImplList(strB);
+        LongArithmethic a = injector.getInstance(LongArithmethic.class);
+        LongArithmethic b = injector.getInstance(LongArithmethic.class);
+        a.setValue(strA);
+        b.setValue(strB);
+        //LongArithmethic res;
+        //LongArithmethic a = new LongArithmethic(strA);
+        //LongArithmethic b = new LongArithmeticImplList(strB);
         switch (operation) {
             case "sum":
                 res = LongArithmeticMath.sum(a, b);
