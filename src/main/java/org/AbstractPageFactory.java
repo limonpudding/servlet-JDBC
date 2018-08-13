@@ -28,6 +28,8 @@ public abstract class AbstractPageFactory {
         this.response = resp;
     }
 
+    protected AbstractPageFactory(){}
+
     public static AbstractPageFactory getFactory(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         URL url = new URL(req.getRequestURL().toString());
         String path = url.getPath();
