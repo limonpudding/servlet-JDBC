@@ -42,3 +42,5 @@
 21. [Struts 2 Tiles Integration Tutorial](https://dzone.com/tutorials/java/struts-2/struts-2-example/struts-2-tiles-example-1.html)
 
 22. [JSP - Standard Tag Library (встроенные возможности)](https://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm)
+
+23. [Руководство пользователя Google Guice](https://netvl.github.io/guice/users-guide.html)
