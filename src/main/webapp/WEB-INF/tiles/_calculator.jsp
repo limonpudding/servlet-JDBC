@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <div class="container">
     <form action="answer" method="get">
         <script>
@@ -76,10 +76,8 @@
             function confirmFibonacci() {
                 if ($("#operation").val() === 'fib') {
                     if (+$("#a").val() > 50000) {
-                        if(!confirm('Вы ввели слишком большое число фибоначчи, ' +
-                            'его рассчёт может занять продолжительное время. Вы хотите продолжить? ')){
-                            event.preventDefault();
-                        }
+                        alert('Вы ввели слишком большое число фибоначчи, ' +
+                            'его рассчёт может занять продолжительное время. ')
                     }
                 }
             }

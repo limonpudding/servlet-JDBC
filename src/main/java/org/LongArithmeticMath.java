@@ -1,5 +1,6 @@
 package org;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -8,14 +9,13 @@ import java.util.Stack;
 public class LongArithmeticMath {
 
     private static int n = 10000;//максимальная длина числа
-
+    private static Injector injector = Guice.createInjector(new LongArithmeticModule());
     public static void setDigitsCount(int dimension) {
         n = dimension;
     }
 
     @Inject
     public static LongArithmethic sum(LongArithmethic addendum, LongArithmethic term) {
-        Injector injector = CreatorAnswer.getInjector();
         LongArithmethic a = addendum;
         LongArithmethic b = term;
         LongArithmethic result = injector.getInstance(LongArithmethic.class);
@@ -49,7 +49,6 @@ public class LongArithmeticMath {
      */
     @Inject
     public static LongArithmethic mul(LongArithmethic multiplied, LongArithmethic factor) {
-        Injector injector = CreatorAnswer.getInjector();
         LongArithmethic a = multiplied;
         LongArithmethic b = factor;
         LongArithmethic result = injector.getInstance(LongArithmethic.class);
@@ -91,7 +90,6 @@ public class LongArithmeticMath {
      */
     @Inject
     public static LongArithmethic sub(LongArithmethic minuend, LongArithmethic subtrahend) {
-        Injector injector = CreatorAnswer.getInjector();
         LongArithmethic a = minuend;
         LongArithmethic b = subtrahend;
         if (a.getSign() == Sign.PLUS && b.getSign() == Sign.MINUS) {
