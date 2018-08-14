@@ -24,7 +24,9 @@ public class CreatorAnswer extends AbstractPageFactory {
     }
 
     public void build() throws Exception {
+
         HttpSession session = page.getValue().getRequest().getSession();
+        ServletContext context = session.getServletContext();
 
         String a = page.getValue().getRequest().getParameter("a");
         String b = page.getValue().getRequest().getParameter("b");
