@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Calc extends HttpServlet {
     public static String globalURL = "http://localhost/";
@@ -23,12 +27,12 @@ public class Calc extends HttpServlet {
             req.setAttribute("exception", "Unknown error!");
             resp.getWriter().println("Error: unknown error");
         }
-
     }
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = req.getReader();
         try {
@@ -40,6 +44,18 @@ public class Calc extends HttpServlet {
             reader.close();
         }
         System.out.println(sb.toString());
+
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship");
+            System.out.println(connection.getMetaData());
+            //connection.setAutoCommit(false);
+            Statement statement = connection.createStatement();
+            statement.execute(sb.toString());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     @Override
