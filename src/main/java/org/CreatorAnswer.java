@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.Annotation;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CreatorAnswer extends AbstractPageFactory {
@@ -31,14 +33,11 @@ public class CreatorAnswer extends AbstractPageFactory {
         String a = page.getValue().getRequest().getParameter("a");
         String b = page.getValue().getRequest().getParameter("b");
         String operation = page.getValue().getRequest().getParameter("operation");
-
         String ans = calc(a, b, operation);
-
         OperationsHistory operationsHistory = new OperationsHistory();
         operationsHistory.getHistory(session);
 
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
-
         org.Operation oper = new org.Operation(formatForDateNow.format(new Date()),a,b,operation,ans);
 
         operationsHistory.addOperation(oper);

@@ -18,7 +18,7 @@ class Operation {
     @Override
     public String toString() {
         if (operation.equals("fib"))
-            return operation + "(" + a + ") = " + result;
+            return date + ": " + operation + "(" + a + ") = " + result;
         return date + ": " + a + " " + operation + " " + b + " = " + result;
     }
 }
