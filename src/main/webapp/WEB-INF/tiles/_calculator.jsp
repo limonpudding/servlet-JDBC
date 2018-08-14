@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8" language="java" %>
 <div class="container">
     <form action="answer" method="get">
@@ -113,3 +114,15 @@
         <input type="submit" id="calcButton" value="Calculate" style="display: none" onclick="confirmFibonacci()"><br>
     </form>
 </div>
+<c:choose>
+    <c:when test="${operationsHistory.isEmpty()=='false'}">
+
+        <div class="form-group" style="padding-top: 30px">
+            <label for="inputHistory">История операций:</label>
+            <textarea class="form-control" id="inputHistory" rows="4" readonly>
+                        <c:forEach var="operation" items="${operationsHistory}">${operation.toString()}
+                        </c:forEach>
+    </textarea>
+        </div>
+    </c:when>
+</c:choose>
