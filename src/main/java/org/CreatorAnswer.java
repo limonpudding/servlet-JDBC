@@ -19,18 +19,16 @@ public class CreatorAnswer extends AbstractPageFactory {
     }
 
     public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp, Injector injector) {
-        page = new Page(req, resp);
+        super(req, resp);
         this.injector = injector;
     }
 
     public void build() throws Exception {
+        HttpSession session = page.getValue().getRequest().getSession();
 
-        HttpSession session = page.getRequest().getSession();
-        ServletContext context = session.getServletContext();
-
-        String a = page.getRequest().getParameter("a");
-        String b = page.getRequest().getParameter("b");
-        String operation = page.getRequest().getParameter("operation");
+        String a = page.getValue().getRequest().getParameter("a");
+        String b = page.getValue().getRequest().getParameter("b");
+        String operation = page.getValue().getRequest().getParameter("operation");
 
         String ans = calc(a, b, operation);
 
@@ -45,9 +43,9 @@ public class CreatorAnswer extends AbstractPageFactory {
 
         session.getServletContext().setAttribute(session.getId(), operationsHistory.getHistory(session));
 
-        page.getRequest().setAttribute("operationsHistory", operationsHistory.getHistory(session));
-        page.getRequest().setAttribute("answer", ans);
-        page.getRequest().getRequestDispatcher("answer.jsp").forward(page.getRequest(), page.getResponse());
+        page.getValue().getRequest().setAttribute("operationsHistory", operationsHistory.getHistory(session));
+        page.getValue().getRequest().setAttribute("answer", ans);
+        page.getValue().getRequest().getRequestDispatcher("answer.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
     }
 
     private String calc(String strA, String strB, String operation) throws IOException {
@@ -56,9 +54,6 @@ public class CreatorAnswer extends AbstractPageFactory {
         LongArithmethic b = injector.getInstance(LongArithmethic.class);
         a.setValue(strA);
         b.setValue(strB);
-        //LongArithmethic res;
-        //LongArithmethic a = new LongArithmethic(strA);
-        //LongArithmethic b = new LongArithmeticImplList(strB);
         switch (operation) {
             case "sum":
                 res = LongArithmeticMath.sum(a, b);

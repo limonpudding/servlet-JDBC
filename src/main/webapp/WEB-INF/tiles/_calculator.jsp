@@ -6,13 +6,10 @@
             function isEmpty(str) {
                 if (str.trim() == '')
                     return true;
-
                 return false;
             }
 
             function keyUp(e) {
-                if (isEmpty($("#a").val()) && isEmpty($("#b").val()))
-                    invisibleInterface();
                 if (isEmpty($("#a").val()) || isEmpty($("#b").val()) || ($("#operation").val() === 'fib' && isEmpty($("#a").val())))
                     $("#calcButton").css('display', 'none');
                 else
@@ -79,8 +76,10 @@
             function confirmFibonacci() {
                 if ($("#operation").val() === 'fib') {
                     if (+$("#a").val() > 50000) {
-                        alert('Вы ввели слишком большое число фибоначчи, ' +
-                            'его рассчёт может занять продолжительное время. ')
+                        if(!confirm('Вы ввели слишком большое число фибоначчи, ' +
+                            'его рассчёт может занять продолжительное время. Хотите продолжить?')){
+                            event.preventDefault();
+                        }
                     }
                 }
             }
@@ -115,7 +114,6 @@
         <input type="submit" id="calcButton" value="Calculate" style="display: none" onclick="confirmFibonacci()"><br>
     </form>
 </div>
-
 <c:choose>
     <c:when test="${operationsHistory.isEmpty()=='false'}">
 
