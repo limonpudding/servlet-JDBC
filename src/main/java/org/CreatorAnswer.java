@@ -43,9 +43,9 @@ public class CreatorAnswer extends AbstractPageFactory {
 
         operationsHistory.addOperation(oper);
 
-        session.getServletContext().setAttribute(session.getId(), operationsHistory.getHistory(session));
+        session.getServletContext().setAttribute(session.getId(), operationsHistory.getHistory());
 
-        page.getValue().getRequest().setAttribute("operationsHistory", operationsHistory.getHistory(session));
+        page.getValue().getRequest().setAttribute("operationsHistory", operationsHistory.getHistory());
         page.getValue().getRequest().setAttribute("answer", ans);
         page.getValue().getRequest().getRequestDispatcher("answer.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
     }

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 class OperationsHistory {
 
-    LinkedList<Operation> operationsHistory;
+    LinkedList<Operation> operationsHistory = new LinkedList<>();
 
     public LinkedList<Operation> getHistory(HttpSession session) {
         Object attribute = session.getServletContext().getAttribute(session.getId());
@@ -15,6 +15,10 @@ class OperationsHistory {
         } else {
             operationsHistory = (LinkedList<Operation>) attribute;
         }
+        return operationsHistory;
+    }
+
+    public LinkedList<Operation> getHistory(){
         return operationsHistory;
     }
 
