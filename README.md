@@ -44,3 +44,5 @@
 22. [JSP - Standard Tag Library (встроенные возможности)](https://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm)
 
 23. [Руководство пользователя Google Guice](https://netvl.github.io/guice/users-guide.html)
+
+24. [Язык описания web-сервисов WSDL](http://java-online.ru/web-service-wsdl.xhtml)
