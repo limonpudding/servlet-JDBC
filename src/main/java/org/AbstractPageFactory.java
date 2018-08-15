@@ -40,6 +40,8 @@ public abstract class AbstractPageFactory {
                 return new CreatorInput(req, resp);
             case "/about":
                 return new CreatorAbout(req, resp);
+            case "/ophistory":
+                return new CreatorOpHistory(req, resp);
             default:
                 return new CreatorHomePage(req, resp);
         }
