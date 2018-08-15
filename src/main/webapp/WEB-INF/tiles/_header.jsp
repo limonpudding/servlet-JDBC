@@ -17,6 +17,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/calc">Calculate!</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ophistory">Opearion history</a>
+            </li>
             <!--
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
