@@ -52,6 +52,9 @@
                     Время завершения сессии
                 </th>
                 <th class="col">
+                    Операция
+                </th>
+                <th class="col">
                     Первый операнд
                 </th>
                 <th class="col">
@@ -66,145 +69,38 @@
             </tr>
             </thead>
             <tbody>
-
+            <c:forEach var="row" items="${fullOperationsHistory}">
                 <tr>
                     <td class="col">
-                        ID
+                        <textarea class="form-control" wrap="off" readonly>${row.id()}</textarea>
                     </td>
                     <td class="col">
-                        IP
+                            ${row.ip()}
                     </td>
                     <td class="col">
-                        Время создания сессии
+                            ${row.sessionStartTime()}
                     </td>
                     <td class="col">
-                        Время завершения сессии
+                            ${row.sessionEndTime()}
                     </td>
                     <td class="col">
-                        Первый операнд
+                            ${row.operationName()}
                     </td>
                     <td class="col">
-                        Второй операнд
+                        <textarea class="form-control" wrap="off" readonly>${row.op1()}</textarea>
                     </td>
                     <td class="col">
-                        Ответ
+                        <textarea class="form-control" wrap="off" readonly>${row.op2()}</textarea>
                     </td>
                     <td class="col">
-                        Время операции
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col">
-                        ID
+                        <textarea class="form-control" wrap="off" readonly>${row.answer()}</textarea>
                     </td>
                     <td class="col">
-                        IP
-                    </td>
-                    <td class="col">
-                        Время создания сессии
-                    </td>
-                    <td class="col">
-                        Время завершения сессии
-                    </td>
-                    <td class="col">
-                        Первый операнд
-                    </td>
-                    <td class="col">
-                        Второй операнд
-                    </td>
-                    <td class="col">
-                        Ответ
-                    </td>
-                    <td class="col">
-                        Время операции
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col">
-                        ID
-                    </td>
-                    <td class="col">
-                        IP
-                    </td>
-                    <td class="col">
-                        Время создания сессии
-                    </td>
-                    <td class="col">
-                        Время завершения сессии
-                    </td>
-                    <td class="col">
-                        Первый операнд
-                    </td>
-                    <td class="col">
-                        Второй операнд
-                    </td>
-                    <td class="col">
-                        Ответ
-                    </td>
-                    <td class="col">
-                        Время операции
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col">
-                        ID
-                    </td>
-                    <td class="col">
-                        IP
-                    </td>
-                    <td class="col">
-                        Время создания сессии
-                    </td>
-                    <td class="col">
-                        Время завершения сессии
-                    </td>
-                    <td class="col">
-                        Первый операнд
-                    </td>
-                    <td class="col">
-                        Второй операнд
-                    </td>
-                    <td class="col">
-                        Ответ
-                    </td>
-                    <td class="col">
-                        Время операции
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col">
-                        ID
-                    </td>
-                    <td class="col">
-                        IP
-                    </td>
-                    <td class="col">
-                        Время создания сессии
-                    </td>
-                    <td class="col">
-                        Время завершения сессии
-                    </td>
-                    <td class="col">
-                        Первый операнд
-                    </td>
-                    <td class="col">
-                        Второй операнд
-                    </td>
-                    <td class="col">
-                        Ответ
-                    </td>
-                    <td class="col">
-                        Время операции
+                            ${row.time()}
                     </td>
                 </tr>
 
 
-                <c:forEach var="operation" items="${operationsHistory}">
-                    ${operation.toString()}
             </c:forEach>
             </tbody>
         </table>
