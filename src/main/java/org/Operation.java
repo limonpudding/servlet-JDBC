@@ -6,13 +6,15 @@ class Operation {
     String operation;
     String result;
     String date;
+    String idOperation;
 
-    Operation(String date, String a, String b, String operation, String result) {
+    Operation(String date, String a, String b, String operation, String result, String idOperation) {
         this.date = date;
         this.a = a;
         this.b = b;
         this.operation = operation;
         this.result = result;
+        this.idOperation = idOperation;
     }
 
     @Override

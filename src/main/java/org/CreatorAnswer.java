@@ -11,6 +11,7 @@ import java.text.Annotation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
@@ -38,7 +39,7 @@ public class CreatorAnswer extends AbstractPageFactory {
         operationsHistory.getHistory(session);
 
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
-        org.Operation oper = new org.Operation(formatForDateNow.format(new Date()),a,b,operation,ans);
+        org.Operation oper = new org.Operation(formatForDateNow.format(new Date()),a,b,operation,ans, UUID.randomUUID().toString());
 
         operationsHistory.addOperation(oper);
 
