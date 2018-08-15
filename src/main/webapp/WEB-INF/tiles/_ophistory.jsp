@@ -20,7 +20,13 @@
         float: left;
         border-bottom-width: 0;
     }
+
+    .hidden {
+        white-space: nowrap; /* Отменяем перенос текста */
+        overflow: hidden; /* Обрезаем содержимое */
+    }
 </style>
+
 <div class="container">
     <div class="row">
         Фильтры:<br>
@@ -35,74 +41,87 @@
             </select>
         </div>
     </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th class="col">
-                    ID
-                </th>
-                <th class="col">
-                    IP
-                </th>
-                <th class="col">
-                    Время создания сессии
-                </th>
-                <th class="col">
-                    Время завершения сессии
-                </th>
-                <th class="col">
-                    Операция
-                </th>
-                <th class="col">
-                    Первый операнд
-                </th>
-                <th class="col">
-                    Второй операнд
-                </th>
-                <th class="col">
-                    Ответ
-                </th>
-                <th class="col">
-                    Время операции
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="row" items="${fullOperationsHistory}">
+
+            <table class="table" style="table-layout: fixed">
+                <thead>
                 <tr>
-                    <td class="col">
-                        <textarea class="form-control" wrap="off" readonly>${row.id()}</textarea>
-                    </td>
-                    <td class="col">
-                            ${row.ip()}
-                    </td>
-                    <td class="col">
-                            ${row.sessionStartTime()}
-                    </td>
-                    <td class="col">
-                            ${row.sessionEndTime()}
-                    </td>
-                    <td class="col">
-                            ${row.operationName()}
-                    </td>
-                    <td class="col">
-                        <textarea class="form-control" wrap="off" readonly>${row.op1()}</textarea>
-                    </td>
-                    <td class="col">
-                        <textarea class="form-control" wrap="off" readonly>${row.op2()}</textarea>
-                    </td>
-                    <td class="col">
-                        <textarea class="form-control" wrap="off" readonly>${row.answer()}</textarea>
-                    </td>
-                    <td class="col">
-                            ${row.time()}
-                    </td>
+                    <th class="col" width="60px">
+                        <div class="hidden">
+                        ID
+                        </div>
+                    </th>
+                    <th class="col">
+                        IP
+                    </th>
+                    <th class="col">
+                        Время создания сессии
+                    </th>
+                    <th class="col">
+                        Время завершения сессии
+                    </th>
+                    <th class="col">
+                        Операция
+                    </th>
+                    <th class="col">
+                        Первый операнд
+                    </th>
+                    <th class="col">
+                        Второй операнд
+                    </th>
+                    <th class="col">
+                        Ответ
+                    </th>
+                    <th class="col">
+                        Время операции
+                    </th>
                 </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="row" items="${fullOperationsHistory}">
+                    <tr>
+                        <td class="col">
+                            <div class="hidden">
+                                ${row.id()}
+                            </div>
+                        </td>
+                        <td class="col">
+                                ${row.ip()}
+                        </td>
+                        <td class="col">
+                                ${row.sessionStartTime()}
+                        </td>
+                        <td class="col">
+                                ${row.sessionEndTime()}
+                        </td>
+                        <td class="col">
+                                ${row.operationName()}
+                        </td>
+                        <td class="col hide">
+                                ${row.op1()}
+                        </td>
+                        <td class="col hide">
+                                ${row.op2()}
+                        </td>
+                        <td class="col hide">
+                                ${row.answer()}
+                        </td>
+                        <td class="col">
+                                ${row.time()}
+                        </td>
+                    </tr>
 
 
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+
+<script type="text/javascript">
+    var size = 5,
+        hideContent = $('.hidden'),
+        hideText = hideContent.text();
+
+    if(hideText.length > size){
+        hideContent.text(hideText.slice(0, size) + ' ...');
+    }
+</script>
