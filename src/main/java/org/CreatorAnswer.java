@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.text.Annotation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,11 +38,14 @@ public class CreatorAnswer extends AbstractPageFactory {
         String b = page.getValue().getRequest().getParameter("b");
         String operation = page.getValue().getRequest().getParameter("operation");
         String ans = calc(a, b, operation);
+
         OperationsHistory operationsHistory = new OperationsHistory();
         operationsHistory.getHistory(session);
 
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
-        org.Operation oper = new org.Operation(formatForDateNow.format(new Date()),a,b,operation,ans, UUID.randomUUID().toString());
+        //        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
+        org.Operation oper = new org.Operation(new Date(),a,b,operation,ans, UUID.randomUUID().toString());
+
+        putDataInBD(oper, page.getValue().getRequest());
 
         operationsHistory.addOperation(oper);
 
@@ -76,5 +82,40 @@ public class CreatorAnswer extends AbstractPageFactory {
                 throw new IOException("Unexpected operation!");
         }
         return res.toString();
+    }
+
+    private void putDataInBD(Operation operation, HttpServletRequest req){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship");
+            Statement statement = connection.createStatement();
+            String sqlFormat="yyyy.MM.dd HH24:mi:ss";
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            statement.execute("update SESSIONS set TIMEEND="+"to_date('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','"+sqlFormat+"')"+" where SESSIONS.ID = '"+req.getSession().getId()+"'");
+        switch (operation.operation){
+            case "sum":
+                statement.execute("insert into SUM (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
+                break;
+            case "sub":
+                statement.execute("insert into SUB (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
+                break;
+            case "mul":
+                statement.execute("insert into MUL (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
+                break;
+            case "div":
+                statement.execute("insert into DIV (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
+                break;
+            case "fib":
+                statement.execute("insert into FIB (ID, FIRSTOPERAND, ANSWER, IDSESSION, TIME) values" +
+                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
+                break;
+        }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
