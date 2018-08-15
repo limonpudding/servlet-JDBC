@@ -37,13 +37,13 @@ public class CreatorOpHistory extends AbstractPageFactory {
                 row = new DBRow();
                 row.id = rs.getString(1);
                 row.ip = rs.getString(2);
-                row.sessionStartTime = rs.getDate(3);
-                row.sessionEndTime = rs.getDate(4);
+                row.sessionStartTime = rs.getString(3);
+                row.sessionEndTime = rs.getString(4);
                 row.operationName = rs.getString(5);
                 row.op1 = rs.getString(6);
                 row.op2 = rs.getString(7);
                 row.answer = rs.getString(8);
-                row.time = rs.getDate(9);
+                row.time = rs.getString(9);
                 rows.add(row);
             }
             return rows;
@@ -56,13 +56,13 @@ public class CreatorOpHistory extends AbstractPageFactory {
     public class DBRow {
         public String id;
         public String ip;
-        public Date sessionStartTime;
-        public Date sessionEndTime;
+        public String sessionStartTime;
+        public String sessionEndTime;
         public String operationName;
         public String op1;
         public String op2;
         public String answer;
-        public Date time;
+        public String time;
 
         public String id() {
             return id;
@@ -73,11 +73,11 @@ public class CreatorOpHistory extends AbstractPageFactory {
         }
 
         public String sessionStartTime(){
-            return formatForDateNow.format(sessionStartTime);
+            return sessionStartTime;
         }
 
         public String sessionEndTime(){
-            return formatForDateNow.format(sessionEndTime);
+            return sessionEndTime;
         }
 
         public String operationName() {
@@ -97,7 +97,7 @@ public class CreatorOpHistory extends AbstractPageFactory {
         }
 
         public String time(){
-            return formatForDateNow.format(time);
+            return time;
         }
     }
 }

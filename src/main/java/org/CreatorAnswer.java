@@ -43,14 +43,23 @@ public class CreatorAnswer extends AbstractPageFactory {
         operationsHistory.getHistory(session);
 
         //        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
-        org.Operation oper = new org.Operation(new Date(),a,b,operation,ans, UUID.randomUUID().toString());
+        org.Operation oper = new org.Operation(new Date(), a, b, operation, ans, UUID.randomUUID().toString());
 
         putDataInBD(oper, page.getValue().getRequest());
 
         operationsHistory.addOperation(oper);
 
         session.getServletContext().setAttribute(session.getId(), operationsHistory.getHistory());
-
+/*
+    SELECT
+      HISTORY.OPERATION,
+      HISTORY.FIRSTOPERAND,
+      HISTORY.SECONDOPERAND,
+      HISTORY.ANSWER,
+      HISTORY.TIME
+    FROM HISTORY
+    WHERE HISTORY.ID = idSession;
+ */
         page.getValue().getRequest().setAttribute("operationsHistory", operationsHistory.getHistory());
         page.getValue().getRequest().setAttribute("answer", ans);
         page.getValue().getRequest().getRequestDispatcher("answer.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
@@ -84,37 +93,37 @@ public class CreatorAnswer extends AbstractPageFactory {
         return res.toString();
     }
 
-    private void putDataInBD(Operation operation, HttpServletRequest req){
+    private void putDataInBD(Operation operation, HttpServletRequest req) {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship");
             Statement statement = connection.createStatement();
-            String sqlFormat="yyyy.MM.dd HH24:mi:ss";
+            String sqlFormat = "yyyy.MM.dd HH24:mi:ss";
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-            statement.execute("update SESSIONS set TIMEEND="+"to_date('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','"+sqlFormat+"')"+" where SESSIONS.ID = '"+req.getSession().getId()+"'");
-        switch (operation.operation){
-            case "sum":
-                statement.execute("insert into SUM (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
-                break;
-            case "sub":
-                statement.execute("insert into SUB (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
-                break;
-            case "mul":
-                statement.execute("insert into MUL (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
-                break;
-            case "div":
-                statement.execute("insert into DIV (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.b+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
-                break;
-            case "fib":
-                statement.execute("insert into FIB (ID, FIRSTOPERAND, ANSWER, IDSESSION, TIME) values" +
-                        " ('"+operation.idOperation+"','"+operation.a+"','"+operation.result+"','"+req.getSession().getId()+"',"+"to_date('" + operation.date() + "','"+sqlFormat+"')"+")");
-                break;
-        }
-        }catch (Exception e){
+            statement.execute("update SESSIONS set TIMEEND=" + "to_date('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + "')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
+            switch (operation.operation) {
+                case "sum":
+                    statement.execute("insert into SUM (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + req.getSession().getId() + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                    break;
+                case "sub":
+                    statement.execute("insert into SUB (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + req.getSession().getId() + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                    break;
+                case "mul":
+                    statement.execute("insert into MUL (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + req.getSession().getId() + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                    break;
+                case "div":
+                    statement.execute("insert into DIV (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + req.getSession().getId() + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                    break;
+                case "fib":
+                    statement.execute("insert into FIB (ID, FIRSTOPERAND, ANSWER, IDSESSION, TIME) values" +
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.result + "','" + req.getSession().getId() + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                    break;
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
