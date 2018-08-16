@@ -30,6 +30,8 @@ public class LoggerFilter implements Filter {
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
             if (req.getSession().isNew()) {
                 statement.execute("insert into SESSIONS (ID, IP, TIMESTART, TIMEEND) values ('" + req.getSession().getId() + "','" + req.getRemoteAddr() + "', to_date('" + formatForDateNow.format(new Date(req.getSession().getCreationTime())) + "','"+sqlFormat+"')," + "to_date('" + formatForDateNow.format(new Date(req.getSession().getCreationTime())) + "','"+sqlFormat+"')" + ")");
+            } else {
+                statement.execute("update SESSIONS set TIMEEND=" + "to_date('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + "')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
