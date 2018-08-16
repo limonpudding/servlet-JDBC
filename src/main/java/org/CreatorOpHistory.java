@@ -22,9 +22,20 @@ public class CreatorOpHistory extends AbstractPageFactory {
         String modeSort = page.getValue().getRequest().getParameter("mode");
         String orderSort = page.getValue().getRequest().getParameter("order");
         page.getValue().getRequest().setAttribute("fullOperationsHistory", selectDataFromBD(modeSort, orderSort));
+        page.getValue().getRequest().setAttribute("fullSessionsHistory", selectSessionsFromBD());
         page.getValue().getRequest().getRequestDispatcher("ophistory.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
     }
 
+    private List<SessionsRow> selectSessionsFromBD() {
+        try (Connection connection = dataBase.getValue().getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY");
+            return createSessionsList(rs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     private List<DBRow> selectDataFromBD(String mode, String order) {
         try (Connection connection = dataBase.getValue().getConnection()) {
@@ -82,6 +93,17 @@ public class CreatorOpHistory extends AbstractPageFactory {
 
         rs = statement.executeQuery(QUERY + " " +"ORDER BY "+ modeStr + " " + orderStr);
         return rs;
+    }
+
+
+    @NotNull
+    private List<SessionsRow> createSessionsList(ResultSet rs) throws SQLException {
+        List<SessionsRow> rows = new ArrayList<>();
+        while (rs.next()) {
+            SessionsRow row = new SessionsRow(rs);
+            rows.add(row);
+        }
+        return rows;
     }
 
     @NotNull
@@ -153,4 +175,35 @@ public class CreatorOpHistory extends AbstractPageFactory {
             return time;
         }
     }
+
+    public class SessionsRow {
+        public String id;
+        public String ip;
+        public String sessionStartTime;
+        public String sessionEndTime;
+
+        private SessionsRow(ResultSet rs) throws SQLException {
+            id = rs.getString(1);
+            ip = rs.getString(2);
+            sessionStartTime = rs.getString(3);
+            sessionEndTime = rs.getString(4);
+        }
+
+        public String id() {
+            return id;
+        }
+
+        public String ip() {
+            return ip;
+        }
+
+        public String sessionStartTime() {
+            return sessionStartTime;
+        }
+
+        public String sessionEndTime() {
+            return sessionEndTime;
+        }
+    }
+
 }

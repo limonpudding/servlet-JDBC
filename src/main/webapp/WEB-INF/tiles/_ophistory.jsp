@@ -116,25 +116,10 @@
                         <th class="col">
                             Время завершения сессии
                         </th>
-                        <th class="col">
-                            Операция
-                        </th>
-                        <th class="col">
-                            Первый операнд
-                        </th>
-                        <th class="col">
-                            Второй операнд
-                        </th>
-                        <th class="col">
-                            Ответ
-                        </th>
-                        <th class="col">
-                            Время операции
-                        </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="row" items="${fullOperationsHistory}">
+                    <c:forEach var="row" items="${fullSessionsHistory}">
                         <tr>
                             <td class="col hidden" title="${row.id()}">
                                 <a href="#" onclick="createTable('${row.id()}')">${row.id()}</a>
@@ -148,24 +133,7 @@
                             <td class="col">
                                     ${row.sessionEndTime()}
                             </td>
-                            <td class="col hidden" title="${row.operationName()}">
-                                    ${row.operationName()}
-                            </td>
-                            <td class="col hidden" title="${row.op1()}">
-                                    ${row.op1()}
-                            </td>
-                            <td class="col hidden" title="${row.op2()}">
-                                    ${row.op2()}
-                            </td>
-                            <td class="col hidden" title="${row.answer()}">
-                                    ${row.answer()}
-                            </td>
-                            <td class="col">
-                                    ${row.time()}
-                            </td>
                         </tr>
-
-
                     </c:forEach>
                     </tbody>
                 </table>
