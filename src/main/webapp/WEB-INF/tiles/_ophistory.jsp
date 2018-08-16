@@ -24,6 +24,8 @@
     .hidden {
         white-space: nowrap; /* Отменяем перенос текста */
         overflow: hidden; /* Обрезаем содержимое */
+        width: 100px;
+        text-overflow:ellipsis;
     }
 </style>
 
@@ -42,89 +44,72 @@
         </div>
     </div>
 
-    <table class="table" style="table-layout: fixed">
-        <thead>
-        <tr>
-            <th class="col" width="60px">
-                <div class="hidden">
-                    ID678678678678678
-                </div>
-            </th>
-            <th class="col">
-                IP
-            </th>
-            <th class="col">
-                Время создания сессии
-            </th>
-            <th class="col">
-                Время завершения сессии
-            </th>
-            <th class="col">
-                Операция
-            </th>
-            <th class="col">
-                Первый операнд
-            </th>
-            <th class="col">
-                Второй операнд
-            </th>
-            <th class="col">
-                Ответ
-            </th>
-            <th class="col">
-                Время операции
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="row" items="${fullOperationsHistory}">
-            <tr>
-                <td class="col hidden">
-                    <div class="" >
-                            ${row.id()}
-                    </div>
-                </td>
-                <td class="col">
-                        ${row.ip()}
-                </td>
-                <td class="col">
-                        ${row.sessionStartTime()}
-                </td>
-                <td class="col">
-                        ${row.sessionEndTime()}
-                </td>
-                <td class="col">
-                        ${row.operationName()}
-                </td>
-                <td class="col hide">
-                        ${row.op1()}
-                </td>
-                <td class="col hide">
-                        ${row.op2()}
-                </td>
-                <td class="col hide">
-                        ${row.answer()}
-                </td>
-                <td class="col">
-                        ${row.time()}
-                </td>
-            </tr>
+            <table class="table" style="table-layout: fixed">
+                <thead>
+                <tr>
+                    <th class="col hidden">
+                        ID
+                    </th>
+                    <th class="col">
+                        IP
+                    </th>
+                    <th class="col">
+                        Время создания сессии
+                    </th>
+                    <th class="col">
+                        Время завершения сессии
+                    </th>
+                    <th class="col">
+                        Операция
+                    </th>
+                    <th class="col">
+                        Первый операнд
+                    </th>
+                    <th class="col">
+                        Второй операнд
+                    </th>
+                    <th class="col">
+                        Ответ
+                    </th>
+                    <th class="col">
+                        Время операции
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="row" items="${fullOperationsHistory}">
+                    <tr>
+                        <td class="col hidden" title="${row.id()}">
+                                ${row.id()}
+                        </td>
+                        <td class="col hidden" title="${row.ip()}">
+                                ${row.ip()}
+                        </td>
+                        <td class="col">
+                                ${row.sessionStartTime()}
+                        </td>
+                        <td class="col">
+                                ${row.sessionEndTime()}
+                        </td>
+                        <td class="col hidden" title="${row.operationName()}">
+                                ${row.operationName()}
+                        </td>
+                        <td class="col hidden" title="${row.op1()}">
+                                ${row.op1()}
+                        </td>
+                        <td class="col hidden" title="${row.op2()}">
+                                ${row.op2()}
+                        </td>
+                        <td class="col hidden" title="${row.answer()}">
+                                ${row.answer()}
+                        </td>
+                        <td class="col">
+                                ${row.time()}
+                        </td>
+                    </tr>
 
 
-        </c:forEach>
-        </tbody>
-    </table>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script>
-    var size = 7;
-
-    $('.hidden').each(function() {
-       var tmp = $(this).text();
-        $(this).text(tmp.trim().substr(0, size) + '...');
-    });
-
-</script>
-
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>

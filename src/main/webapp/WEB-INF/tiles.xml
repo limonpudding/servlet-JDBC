@@ -10,6 +10,13 @@
         <put-attribute name="body" value="/WEB-INF/tiles/body.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/_footer.jsp" />
     </definition>
+    <definition name="history.definition" template="/WEB-INF/layouts/forOphistory.jsp">
+        <put-attribute name="title" value="Tiles tutorial homepage" />
+        <put-attribute name="cssFile" value="/WEB-INF/tiles/cssFile.jsp" />
+        <put-attribute name="header" value="/WEB-INF/tiles/_header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/tiles/body.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/_footer.jsp" />
+    </definition>
     <!-- Input Page  -->
     <definition name="inputPage" extends="base.definition">
         <put-attribute name="title" value="Calculator" />
@@ -31,7 +38,7 @@
         <put-attribute name="body" value="/WEB-INF/tiles/_about.jsp" />
     </definition>
     <!-- Operation History Page  -->
-    <definition name="operationHistoryPage" extends="base.definition">
+    <definition name="operationHistoryPage" extends="history.definition">
         <put-attribute name="title" value="About" />
         <put-attribute name="body" value="/WEB-INF/tiles/_ophistory.jsp" />
     </definition>
