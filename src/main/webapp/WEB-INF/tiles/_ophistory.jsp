@@ -65,7 +65,7 @@
         </c:forEach>
     }
 </script>
-<div class="container" style="height: 85%;overflow-y: auto">
+<div class="container" style="height: 80%;overflow-y: auto">
     <div class="row">
         <h4>Сортировка: </h4>
     </div>
