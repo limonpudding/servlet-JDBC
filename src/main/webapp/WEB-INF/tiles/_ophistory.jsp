@@ -59,50 +59,35 @@
 </script>
 <div class="container" style="height: 85%;overflow-y: auto">
     <div class="row">
-        <p>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtres"
-                    aria-expanded="false" aria-controls="filtres">
-                Button with data-target
-            </button>
-        </p>
+        <h4>Сортировка: </h4>
     </div>
-    <div class="collapse row" id="filtres">
-        <div class="card card-body">
-            <form action="ophistory" method="GET">
-                <div class="col-6">
-                    <p>Сортировать по столбцу:</p>
-                    <p><input name="mode" type="radio" value="idSession">ID</p>
-                    <p><input name="mode" type="radio" value="ip">IP</p>
-                    <p><input name="mode" type="radio" value="timeStart">Время создания сессии</p>
-                    <p><input name="mode" type="radio" value="timeEnd">Время завершения сессии</p>
-                    <p><input name="mode" type="radio" value="operation">Операция</p>
-                    <p><input name="mode" type="radio" value="firstOper">Первый операнд</p>
-                    <p><input name="mode" type="radio" value="secondOper">Второй операнд</p>
-                    <p><input name="mode" type="radio" value="answer">Ответ</p>
-                    <p><input name="mode" type="radio" value="time">Время операции</p>
-                </div>
-                <div class="col-6">
-                    <p>Порядок сортировки:</p>
-                    <p><input name="order" type="radio" value="asc">По возрастанию</p>
-                    <p><input name="order" type="radio" value="desc">По убыванию</p>
-                </div>
-                <p><input type="submit" value="Выбрать"></p>
-            </form>
-        </div>
-    </div>
-
     <div class="row">
-        Фильтры:<br>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend" style="margin-top: 8px;">
-                <label class="input-group-text" for="inputGroupSelect01">Операции</label>
+        <form action="ophistory" method="get">
+            <div class="form-row">
+                <div class="form-group col">
+                    <select class="custom-select" id="mode" name="mode">
+                        <option value="time" selected>Столбец</option>
+                        <option value="idSession">ID</option>
+                        <option value="ip">IP</option>
+                        <option value="timeStart">Время создания сессии</option>
+                        <option value="timeEnd">Время завершения сессии</option>
+                        <option value="operation">Операция</option>
+                        <option value="firstOper">Первый операнд</option>
+                        <option value="secondOper">Второй операнд</option>
+                        <option value="answer">Ответ</option>
+                        <option value="time">Время операции</option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <select class="custom-select" id="order" name="order">
+                        <option value="asc" selected>Порядок</option>
+                        <option value="asc">По возрастанию</option>
+                        <option value="desc">По убыванию</option>
+                    </select>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Выбрать">
             </div>
-            <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Choose...</option>
-                <option value="1">Только мои</option>
-                <option value="2">Все</option>
-            </select>
-        </div>
+        </form>
     </div>
 
     <div id="carouselExampleControls" class="carousel slide" data-ride="false" data-pause="true">
