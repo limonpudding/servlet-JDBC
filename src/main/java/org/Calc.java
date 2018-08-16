@@ -45,16 +45,6 @@ public class Calc extends HttpServlet {
         }
         System.out.println(sb.toString());
 
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship");
-            System.out.println(connection.getMetaData());
-            //connection.setAutoCommit(false);
-            Statement statement = connection.createStatement();
-            statement.execute(sb.toString());
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
 
     }
 

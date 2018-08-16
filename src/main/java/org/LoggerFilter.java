@@ -18,18 +18,18 @@ public class LoggerFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship");
+        try (Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship")) {
             Statement statement = connection.createStatement();
-            String sqlFormat="yyyy.MM.dd HH24:mi:ss";
+            String sqlFormat = "yyyy.MM.dd HH24:mi:ss";
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
             if (req.getSession().isNew()) {
-                statement.execute("insert into SESSIONS (ID, IP, TIMESTART, TIMEEND) values ('" + req.getSession().getId() + "','" + req.getRemoteAddr() + "', to_date('" + formatForDateNow.format(new Date(req.getSession().getCreationTime())) + "','"+sqlFormat+"')," + "to_date('" + formatForDateNow.format(new Date(req.getSession().getCreationTime())) + "','"+sqlFormat+"')" + ")");
+                statement.execute("insert into SESSIONS (ID, IP, TIMESTART, TIMEEND) values ('" + req.getSession().getId() + "','" + req.getRemoteAddr() + "', to_date('" + formatForDateNow.format(new Date(req.getSession().getCreationTime())) + "','" + sqlFormat + "')," + "to_date('" + formatForDateNow.format(new Date(req.getSession().getCreationTime())) + "','" + sqlFormat + "')" + ")");
             } else {
                 statement.execute("update SESSIONS set TIMEEND=" + "to_date('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + "')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
             }
