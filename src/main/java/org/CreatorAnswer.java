@@ -96,6 +96,8 @@ public class CreatorAnswer extends AbstractPageFactory {
             Statement statement = connection.createStatement();
             String sqlFormat = "yyyy.MM.dd HH24:mi:ss";
             String sessionId = req.getSession().getId();
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            statement.execute("update SESSIONS set TIMEEND=" + "to_date('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + "')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
             switch (operation.operation) {
                 case "sum":
                     statement.execute("insert into SUM (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
