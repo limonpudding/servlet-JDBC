@@ -45,17 +45,17 @@ public class Calc extends HttpServlet {
         }
         System.out.println(sb.toString());
 
-
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            DataBase db = new DataBase("jdbc/db");
+            Connection connection = db.getConnection();
+            System.out.println(connection.getMetaData());
+            //connection.setAutoCommit(false);
+            Statement statement = connection.createStatement();
+            statement.execute(sb.toString());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
     }
 
     @Override
