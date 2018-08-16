@@ -29,9 +29,14 @@
     }
 </style>
 <script>
+
+    function slide(){
+        $('#carouselExampleControls').carousel('next');
+    }
+
     function createTable(id) {
         $('#secondTable').html('');
-        $('#carouselExampleControls').carousel('next');
+        slide();
         <c:forEach var="row" items="${fullOperationsHistory}">
         if (id === '${row.id()}') {
             $('#secondTable').append(
@@ -106,14 +111,6 @@
     </div>
 
     <div id="carouselExampleControls" class="carousel slide" data-ride="false" data-pause="true">
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <table class="table" style="table-layout: fixed">
@@ -186,6 +183,7 @@
                 </table>
             </div>
             <div class="carousel-item">
+                <input class="btn btn-primary" type="button" onclick="slide()" value="Назад">
                 <table class="table" style="table-layout: fixed">
                     <thead>
                     <tr>
