@@ -59,6 +59,39 @@
 </script>
 <div class="container" style="height: 85%;overflow-y: auto">
     <div class="row">
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtres"
+                    aria-expanded="false" aria-controls="filtres">
+                Button with data-target
+            </button>
+        </p>
+    </div>
+    <div class="collapse row" id="filtres">
+        <div class="card card-body">
+            <form action="ophistory.jsp" method="GET">
+                <div class="col-6">
+                    <p>Сортировать по столбцу:</p>
+                    <p><input name="mode" type="radio" value="idSession">ID</p>
+                    <p><input name="mode" type="radio" value="ip">IP</p>
+                    <p><input name="mode" type="radio" value="timeStart">Время создания сессии</p>
+                    <p><input name="mode" type="radio" value="timeEnd">Время завершения сессии</p>
+                    <p><input name="mode" type="radio" value="operation">Операция</p>
+                    <p><input name="mode" type="radio" value="firstOper">Первый операнд</p>
+                    <p><input name="mode" type="radio" value="secondOper">Второй операнд</p>
+                    <p><input name="mode" type="radio" value="answer">Ответ</p>
+                    <p><input name="mode" type="radio" value="time">Время операции</p>
+                </div>
+                <div class="col-6">
+                    <p>Порядок сортировки:</p>
+                    <p><input name="order" type="radio" value="asc">По возрастанию</p>
+                    <p><input name="order" type="radio" value="desc">По убыванию</p>
+                </div>
+                <p><input type="submit" value="Выбрать"></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
         Фильтры:<br>
         <div class="input-group mb-3">
             <div class="input-group-prepend" style="margin-top: 8px;">
@@ -71,15 +104,16 @@
             </select>
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+
     <div id="carouselExampleControls" class="carousel slide" data-ride="false" data-pause="true">
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <table class="table" style="table-layout: fixed">
@@ -91,7 +125,7 @@
                         <th class="col">
                             IP
                         </th>
-                        <th class="col">
+                        <th class="col" onclick="">
                             Время создания сессии
                         </th>
                         <th class="col">
