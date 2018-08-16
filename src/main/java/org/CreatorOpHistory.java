@@ -19,19 +19,67 @@ public class CreatorOpHistory extends AbstractPageFactory {
     }
 
     public void build() throws Exception {
-        page.getValue().getRequest().setAttribute("fullOperationsHistory", selectDataFromBD());
+        String modeSort = page.getValue().getRequest().getParameter("mode");
+        String orderSort = page.getValue().getRequest().getParameter("order");
+        page.getValue().getRequest().setAttribute("fullOperationsHistory", selectDataFromBD(modeSort, orderSort));
         page.getValue().getRequest().getRequestDispatcher("ophistory.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
     }
 
-    private List<DBRow> selectDataFromBD(){
+
+    private List<DBRow> selectDataFromBD(String mode, String order) {
         try (Connection connection = dataBase.getValue().getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(QUERY);
+            ResultSet rs = getResultSet(mode, order, statement);
             return createRowList(rs);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    private ResultSet getResultSet(String mode, String order, Statement statement) throws SQLException {
+        ResultSet rs;
+        String orderStr;
+        String modeStr;
+        if ("desc".equals(order)) {
+            orderStr = "desc";
+        } else {
+            orderStr = "asc";
+        }
+        switch (mode) {
+            case "idSession":
+                modeStr = "ID";
+                break;
+            case "ip":
+                modeStr = "IP";
+                break;
+            case "timeStart":
+                modeStr = "TIMESTART";
+                break;
+            case "timeEnd":
+                modeStr = "TIMEEND";
+                break;
+            case "operation":
+                modeStr = "OPERATION";
+                break;
+            case "firstOper":
+                modeStr = "FIRSTOPERAND";
+                break;
+            case "secondOper":
+                modeStr = "SECONDOPERAND";
+                break;
+            case "answer":
+                modeStr = "ANSWER";
+                break;
+            case "time":
+                modeStr = "TIME";
+                break;
+            default:
+                modeStr = "TIME";
+        }
+
+        rs = statement.executeQuery(QUERY + " " + modeStr + " " + orderStr);
+        return rs;
     }
 
     @NotNull
@@ -75,11 +123,11 @@ public class CreatorOpHistory extends AbstractPageFactory {
             return ip;
         }
 
-        public String sessionStartTime(){
+        public String sessionStartTime() {
             return sessionStartTime;
         }
 
-        public String sessionEndTime(){
+        public String sessionEndTime() {
             return sessionEndTime;
         }
 
@@ -99,7 +147,7 @@ public class CreatorOpHistory extends AbstractPageFactory {
             return answer;
         }
 
-        public String time(){
+        public String time() {
             return time;
         }
     }
