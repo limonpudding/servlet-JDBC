@@ -24,6 +24,8 @@
     .hidden {
         white-space: nowrap; /* Отменяем перенос текста */
         overflow: hidden; /* Обрезаем содержимое */
+        width: 100px;
+        text-overflow:ellipsis;
     }
 </style>
 
@@ -45,10 +47,8 @@
             <table class="table" style="table-layout: fixed">
                 <thead>
                 <tr>
-                    <th class="col" width="60px">
-                        <div class="hidden">
+                    <th class="col hidden">
                         ID
-                        </div>
                     </th>
                     <th class="col">
                         IP
@@ -79,12 +79,10 @@
                 <tbody>
                 <c:forEach var="row" items="${fullOperationsHistory}">
                     <tr>
-                        <td class="col">
-                            <div class="hidden">
+                        <td class="col hidden" title="${row.id()}">
                                 ${row.id()}
-                            </div>
                         </td>
-                        <td class="col">
+                        <td class="col hidden" title="${row.ip()}">
                                 ${row.ip()}
                         </td>
                         <td class="col">
@@ -93,16 +91,16 @@
                         <td class="col">
                                 ${row.sessionEndTime()}
                         </td>
-                        <td class="col">
+                        <td class="col hidden" title="${row.operationName()}">
                                 ${row.operationName()}
                         </td>
-                        <td class="col hide">
+                        <td class="col hidden" title="${row.op1()}">
                                 ${row.op1()}
                         </td>
-                        <td class="col hide">
+                        <td class="col hidden" title="${row.op2()}">
                                 ${row.op2()}
                         </td>
-                        <td class="col hide">
+                        <td class="col hidden" title="${row.answer()}">
                                 ${row.answer()}
                         </td>
                         <td class="col">
@@ -115,13 +113,3 @@
                 </tbody>
             </table>
         </div>
-
-<script type="text/javascript">
-    var size = 5,
-        hideContent = $('.hidden'),
-        hideText = hideContent.text();
-
-    if(hideText.length > size){
-        hideContent.text(hideText.slice(0, size) + ' ...');
-    }
-</script>
