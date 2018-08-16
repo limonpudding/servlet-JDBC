@@ -25,10 +25,37 @@
         white-space: nowrap; /* Отменяем перенос текста */
         overflow: hidden; /* Обрезаем содержимое */
         width: 100px;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
     }
 </style>
-
+<script>
+    function createTable(id) {
+        $('#secondTable').html('');
+        <c:forEach var="row" items="${fullOperationsHistory}">
+        if (id === '${row.id()}') {
+            $('#secondTable').append(
+                '<tr>' +
+                '<td class="col hidden" title="${row.operationName()}">' +
+                '${row.operationName()}' +
+                '</td>' +
+                '<td class="col hidden" title="${row.op1()}">' +
+                '${row.op1()}' +
+                '</td>' +
+                '<td class="col hidden" title="${row.op2()}">' +
+                '${row.op2()}' +
+                '</td>' +
+                '<td class="col hidden" title="${row.answer()}">' +
+                '${row.answer()}' +
+                '</td>' +
+                '<td class="col" title="${row.time()}">' +
+                '${row.time()}' +
+                '</td>' +
+                '</tr>'
+            )
+        }
+        </c:forEach>
+    }
+</script>
 <div class="container">
     <div class="row">
         Фильтры:<br>
@@ -44,72 +71,98 @@
         </div>
     </div>
 
-            <table class="table" style="table-layout: fixed">
-                <thead>
-                <tr>
-                    <th class="col hidden">
-                        ID
-                    </th>
-                    <th class="col">
-                        IP
-                    </th>
-                    <th class="col">
-                        Время создания сессии
-                    </th>
-                    <th class="col">
-                        Время завершения сессии
-                    </th>
-                    <th class="col">
-                        Операция
-                    </th>
-                    <th class="col">
-                        Первый операнд
-                    </th>
-                    <th class="col">
-                        Второй операнд
-                    </th>
-                    <th class="col">
-                        Ответ
-                    </th>
-                    <th class="col">
-                        Время операции
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="row" items="${fullOperationsHistory}">
-                    <tr>
-                        <td class="col hidden" title="${row.id()}">
-                                ${row.id()}
-                        </td>
-                        <td class="col hidden" title="${row.ip()}">
-                                ${row.ip()}
-                        </td>
-                        <td class="col">
-                                ${row.sessionStartTime()}
-                        </td>
-                        <td class="col">
-                                ${row.sessionEndTime()}
-                        </td>
-                        <td class="col hidden" title="${row.operationName()}">
-                                ${row.operationName()}
-                        </td>
-                        <td class="col hidden" title="${row.op1()}">
-                                ${row.op1()}
-                        </td>
-                        <td class="col hidden" title="${row.op2()}">
-                                ${row.op2()}
-                        </td>
-                        <td class="col hidden" title="${row.answer()}">
-                                ${row.answer()}
-                        </td>
-                        <td class="col">
-                                ${row.time()}
-                        </td>
-                    </tr>
+    <table class="table" style="table-layout: fixed">
+        <thead>
+        <tr>
+            <th class="col hidden">
+                ID
+            </th>
+            <th class="col">
+                IP
+            </th>
+            <th class="col">
+                Время создания сессии
+            </th>
+            <th class="col">
+                Время завершения сессии
+            </th>
+            <th class="col">
+                Операция
+            </th>
+            <th class="col">
+                Первый операнд
+            </th>
+            <th class="col">
+                Второй операнд
+            </th>
+            <th class="col">
+                Ответ
+            </th>
+            <th class="col">
+                Время операции
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="row" items="${fullOperationsHistory}">
+            <tr>
+                <td class="col hidden" title="${row.id()}">
+                    <a href="#" onclick="createTable('${row.id()}')">${row.id()}</a>
+                </td>
+                <td class="col hidden" title="${row.ip()}">
+                        ${row.ip()}
+                </td>
+                <td class="col">
+                        ${row.sessionStartTime()}
+                </td>
+                <td class="col">
+                        ${row.sessionEndTime()}
+                </td>
+                <td class="col hidden" title="${row.operationName()}">
+                        ${row.operationName()}
+                </td>
+                <td class="col hidden" title="${row.op1()}">
+                        ${row.op1()}
+                </td>
+                <td class="col hidden" title="${row.op2()}">
+                        ${row.op2()}
+                </td>
+                <td class="col hidden" title="${row.answer()}">
+                        ${row.answer()}
+                </td>
+                <td class="col">
+                        ${row.time()}
+                </td>
+            </tr>
 
 
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+        </c:forEach>
+        </tbody>
+    </table>
+    <table class="table" style="table-layout: fixed">
+        <thead>
+        <tr>
+            <th class="col">
+                Операция
+            </th>
+            <th class="col">
+                Первый операнд
+            </th>
+            <th class="col">
+                Второй операнд
+            </th>
+            <th class="col">
+                Ответ
+            </th>
+            <th class="col">
+                Время операции
+            </th>
+        </tr>
+        </thead>
+        <tbody id="secondTable">
+        </tbody>
+    </table>
+</div>
+
+
+
