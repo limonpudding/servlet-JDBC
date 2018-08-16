@@ -29,15 +29,23 @@
     }
 </style>
 <script>
-    function slidePrev(){
+    function openSecondPage() {
+        $('#idSessii').val(idSessii);
+        $('#sortForm').submit();
+    }
+
+    function slidePrev() {
         $('#carouselExampleControls').carousel('prev');
     }
-    function slideNext(){
+
+    function slideNext() {
         $('#carouselExampleControls').carousel('next');
     }
 
     function createTable(id) {
         $('#secondTable').html('');
+
+        window['idSessii'] = id;
         slideNext();
         <c:forEach var="row" items="${fullOperationsHistory}">
         if (id === '${row.id()}') {
@@ -68,34 +76,30 @@
     <div id="carouselExampleControls" class="carousel slide" data-ride="false" data-pause="true">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="row">
-                    <h4>Сортировка: </h4>
-                </div>
-                <div class="row">
-                    <form action="ophistory" method="get">
-                        <div class="form-row">
-                            <div class="form-group col-auto">
-                                <select class="custom-select" id="mode" name="mode">
-                                    <option value="time" selected>Столбец</option>
-                                    <option value="idSession">ID</option>
-                                    <option value="ip">IP</option>
-                                    <option value="timeStart">Время создания сессии</option>
-                                    <option value="timeEnd">Время завершения сессии</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-auto">
-                                <select class="custom-select" id="order" name="order">
-                                    <option value="asc" selected>Порядок</option>
-                                    <option value="asc">По возрастанию</option>
-                                    <option value="desc">По убыванию</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <input class="btn btn-primary" type="submit" value="Выбрать">
-                            </div>
+                <h4>Сортировка: </h4>
+                <form action="ophistory" method="get">
+                    <div class="form-row">
+                        <div class="form-group col-auto">
+                            <select class="custom-select" id="mode" name="mode">
+                                <option value="time" selected>Столбец</option>
+                                <option value="idSession">ID</option>
+                                <option value="ip">IP</option>
+                                <option value="timeStart">Время создания сессии</option>
+                                <option value="timeEnd">Время завершения сессии</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group col-auto">
+                            <select class="custom-select" id="order" name="order">
+                                <option value="asc" selected>Порядок</option>
+                                <option value="asc">По возрастанию</option>
+                                <option value="desc">По убыванию</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input class="btn btn-primary" type="submit" value="Выбрать">
+                        </div>
+                    </div>
+                </form>
                 <table class="table" style="table-layout: fixed">
                     <thead>
                     <tr>
@@ -134,31 +138,28 @@
                 </table>
             </div>
             <div class="carousel-item">
-                <div class="row">
-                    <h4>Сортировка: </h4>
-                </div>
-                <div class="row">
-                    <form action="ophistory" method="get">
-                        <div class="form-row">
-                            <div class="form-group col-auto">
-                                <select class="custom-select" name="mode">
-                                    <option value="operation">Операция</option>
-                                    <option value="time">Время операции</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-auto">
-                                <select class="custom-select" name="order">
-                                    <option value="asc">По возрастанию</option>
-                                    <option value="desc">По убыванию</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <input class="btn btn-primary" type="button" value="Выбрать">
-                                <input class="btn btn-secondary" type="button" onclick="slidePrev()" value="Назад">
-                            </div>
+                <h4>Сортировка: </h4>
+                <form action="ophistory" method="get" id="sortForm">
+                    <div class="form-row">
+                        <div class="form-group col-auto">
+                            <select class="custom-select" name="mode">
+                                <option value="operation">Операция</option>
+                                <option value="time">Время операции</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group col-auto">
+                            <select class="custom-select" name="order">
+                                <option value="asc">По возрастанию</option>
+                                <option value="desc">По убыванию</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type='hidden' name='idSessii' value='' id='idSessii'/>
+                            <input class="btn btn-primary" type="button" onclick="openSecondPage()" value="Выбрать">
+                            <input class="btn btn-secondary" type="button" onclick="slidePrev()" value="Назад">
+                        </div>
+                    </div>
+                </form>
                 <table class="table" style="table-layout: fixed">
                     <thead>
                     <tr>
@@ -184,6 +185,15 @@
                 </table>
             </div>
         </div>
+        <script>
+            var str = '${idSessii}';
+            if (str != null && typeof str !== "undefined") {
+                str = str.trim();
+            }
+            if (str!=="") {
+                createTable();
+            }
+        </script>
     </div>
 </div>
 
