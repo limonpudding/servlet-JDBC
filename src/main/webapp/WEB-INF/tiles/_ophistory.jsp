@@ -72,7 +72,7 @@
     <div class="row">
         <form action="ophistory" method="get">
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-auto">
                     <select class="custom-select" id="mode" name="mode">
                         <option value="time" selected>Столбец</option>
                         <option value="idSession">ID</option>
@@ -86,14 +86,16 @@
                         <option value="time">Время операции</option>
                     </select>
                 </div>
-                <div class="form-group col">
+                <div class="form-group col-auto">
                     <select class="custom-select" id="order" name="order">
                         <option value="asc" selected>Порядок</option>
                         <option value="asc">По возрастанию</option>
                         <option value="desc">По убыванию</option>
                     </select>
                 </div>
-                <input class="btn btn-primary col" type="submit" value="Выбрать">
+                <div class="col">
+                    <input class="btn btn-primary" type="submit" value="Выбрать">
+                </div>
             </div>
         </form>
     </div>
