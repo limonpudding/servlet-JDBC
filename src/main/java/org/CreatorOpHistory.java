@@ -46,6 +46,8 @@ public class CreatorOpHistory extends AbstractPageFactory {
         } else {
             orderStr = "asc";
         }
+        if(mode==null)
+            mode="";
         switch (mode) {
             case "idSession":
                 modeStr = "ID";
@@ -78,7 +80,7 @@ public class CreatorOpHistory extends AbstractPageFactory {
                 modeStr = "TIME";
         }
 
-        rs = statement.executeQuery(QUERY + " " + modeStr + " " + orderStr);
+        rs = statement.executeQuery(QUERY + " " +"ORDER BY "+ modeStr + " " + orderStr);
         return rs;
     }
 

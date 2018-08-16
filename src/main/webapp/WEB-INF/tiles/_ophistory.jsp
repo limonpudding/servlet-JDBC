@@ -68,7 +68,7 @@
     </div>
     <div class="collapse row" id="filtres">
         <div class="card card-body">
-            <form action="ophistory.jsp" method="GET">
+            <form action="ophistory" method="GET">
                 <div class="col-6">
                     <p>Сортировать по столбцу:</p>
                     <p><input name="mode" type="radio" value="idSession">ID</p>
