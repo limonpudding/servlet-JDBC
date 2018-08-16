@@ -46,8 +46,8 @@ public class Calc extends HttpServlet {
         System.out.println(sb.toString());
 
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship");
+            DataBase db = new DataBase("jdbc/db");
+            Connection connection = db.getConnection();
             System.out.println(connection.getMetaData());
             //connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
@@ -56,16 +56,6 @@ public class Calc extends HttpServlet {
             System.out.println(e.getMessage());
         }
 
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

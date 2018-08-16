@@ -3,3 +3,11 @@
 6: Таблица сессий: ip, id сессии, время начала, время конца
 
 7: Таблица, которая вяжет сессии и операции: id сессии, id операции
+
+###Полезные ссылки
+
+1. [JNDI Tutorial](https://docs.oracle.com/javase/jndi/tutorial/index.html)
+
+2. [JNDI документация (Oracle)](https://docs.oracle.com/javase/7/docs/technotes/guides/jndi/index.html)
+
+3. [JNDI HOWTO](http://tomcat.apache.org/tomcat-8.0-doc/jndi-resources-howto.html)

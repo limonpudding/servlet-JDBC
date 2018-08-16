@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource
+            name="jdbc/db" type="javax.sql.DataSource"
+            maxActive="100" maxIdle="30" maxWait="10000"
+            url="jdbc:oracle:thin:@192.168.1.151:1521:gmudb"
+            driverClassName="oracle.jdbc.driver.OracleDriver"
+            username="internship" password="internship"
+    />
+</Context>
