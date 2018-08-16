@@ -29,7 +29,6 @@
     }
 </style>
 <script>
-
     function slidePrev(){
         $('#carouselExampleControls').carousel('prev');
     }
@@ -66,43 +65,37 @@
     }
 </script>
 <div class="container" style="height: 80%;overflow-y: auto">
-    <div class="row">
-        <h4>Сортировка: </h4>
-    </div>
-    <div class="row">
-        <form action="ophistory" method="get">
-            <div class="form-row">
-                <div class="form-group col-auto">
-                    <select class="custom-select" id="mode" name="mode">
-                        <option value="time" selected>Столбец</option>
-                        <option value="idSession">ID</option>
-                        <option value="ip">IP</option>
-                        <option value="timeStart">Время создания сессии</option>
-                        <option value="timeEnd">Время завершения сессии</option>
-                        <option value="operation">Операция</option>
-                        <option value="firstOper">Первый операнд</option>
-                        <option value="secondOper">Второй операнд</option>
-                        <option value="answer">Ответ</option>
-                        <option value="time">Время операции</option>
-                    </select>
-                </div>
-                <div class="form-group col-auto">
-                    <select class="custom-select" id="order" name="order">
-                        <option value="asc" selected>Порядок</option>
-                        <option value="asc">По возрастанию</option>
-                        <option value="desc">По убыванию</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <input class="btn btn-primary" type="submit" value="Выбрать">
-                </div>
-            </div>
-        </form>
-    </div>
-
     <div id="carouselExampleControls" class="carousel slide" data-ride="false" data-pause="true">
         <div class="carousel-inner">
             <div class="carousel-item active">
+                <div class="row">
+                    <h4>Сортировка: </h4>
+                </div>
+                <div class="row">
+                    <form action="ophistory" method="get">
+                        <div class="form-row">
+                            <div class="form-group col-auto">
+                                <select class="custom-select" id="mode" name="mode">
+                                    <option value="time" selected>Столбец</option>
+                                    <option value="idSession">ID</option>
+                                    <option value="ip">IP</option>
+                                    <option value="timeStart">Время создания сессии</option>
+                                    <option value="timeEnd">Время завершения сессии</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-auto">
+                                <select class="custom-select" id="order" name="order">
+                                    <option value="asc" selected>Порядок</option>
+                                    <option value="asc">По возрастанию</option>
+                                    <option value="desc">По убыванию</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="btn btn-primary" type="submit" value="Выбрать">
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <table class="table" style="table-layout: fixed">
                     <thead>
                     <tr>
@@ -141,7 +134,31 @@
                 </table>
             </div>
             <div class="carousel-item">
-                <input class="btn btn-primary" type="button" onclick="slidePrev()" value="Назад">
+                <div class="row">
+                    <h4>Сортировка: </h4>
+                </div>
+                <div class="row">
+                    <form action="ophistory" method="get">
+                        <div class="form-row">
+                            <div class="form-group col-auto">
+                                <select class="custom-select" name="mode">
+                                    <option value="operation">Операция</option>
+                                    <option value="time">Время операции</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-auto">
+                                <select class="custom-select" name="order">
+                                    <option value="asc">По возрастанию</option>
+                                    <option value="desc">По убыванию</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="btn btn-primary" type="button" value="Выбрать">
+                                <input class="btn btn-secondary" type="button" onclick="slidePrev()" value="Назад">
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <table class="table" style="table-layout: fixed">
                     <thead>
                     <tr>
