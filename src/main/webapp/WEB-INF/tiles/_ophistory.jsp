@@ -30,13 +30,16 @@
 </style>
 <script>
 
-    function slide(){
+    function slidePrev(){
+        $('#carouselExampleControls').carousel('prev');
+    }
+    function slideNext(){
         $('#carouselExampleControls').carousel('next');
     }
 
     function createTable(id) {
         $('#secondTable').html('');
-        slide();
+        slideNext();
         <c:forEach var="row" items="${fullOperationsHistory}">
         if (id === '${row.id()}') {
             $('#secondTable').append(
@@ -90,7 +93,7 @@
                         <option value="desc">По убыванию</option>
                     </select>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Выбрать">
+                <input class="btn btn-primary col" type="submit" value="Выбрать">
             </div>
         </form>
     </div>
@@ -168,7 +171,7 @@
                 </table>
             </div>
             <div class="carousel-item">
-                <input class="btn btn-primary" type="button" onclick="slide()" value="Назад">
+                <input class="btn btn-primary" type="button" onclick="slidePrev()" value="Назад">
                 <table class="table" style="table-layout: fixed">
                     <thead>
                     <tr>
