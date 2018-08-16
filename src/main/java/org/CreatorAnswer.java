@@ -92,8 +92,7 @@ public class CreatorAnswer extends AbstractPageFactory {
     }
 
     private void putDataInBD(Operation operation, HttpServletRequest req) {
-        DataBase db = new DataBase("jdbc/db");
-        try (Connection connection = db.getConnection()) {
+        try (Connection connection = dataBase.getValue().getConnection()) {
             Statement statement = connection.createStatement();
             String sqlFormat = "yyyy.MM.dd HH24:mi:ss";
             String sessionId = req.getSession().getId();

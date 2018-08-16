@@ -11,6 +11,13 @@ public abstract class AbstractPageFactory {
     private HttpServletRequest request;
     private HttpServletResponse response;
 
+    protected Lazy<DataBase> dataBase = new Lazy<org.DataBase>() {
+        @Override
+        protected org.DataBase setValue() {
+            return new DataBase("jdbc/db");
+        }
+    };
+
     protected Lazy<Page> page = new Lazy<Page>() {
         @Override
         protected Page setValue() {

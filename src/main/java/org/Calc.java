@@ -29,35 +29,6 @@ public class Calc extends HttpServlet {
         }
     }
 
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        StringBuilder sb = new StringBuilder();
-        BufferedReader reader = req.getReader();
-        try {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append('\n');
-            }
-        } finally {
-            reader.close();
-        }
-        System.out.println(sb.toString());
-
-        try {
-            DataBase db = new DataBase("jdbc/db");
-            Connection connection = db.getConnection();
-            System.out.println(connection.getMetaData());
-            //connection.setAutoCommit(false);
-            Statement statement = connection.createStatement();
-            statement.execute(sb.toString());
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-    }
-
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.service(req, resp);
