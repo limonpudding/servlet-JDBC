@@ -59,6 +59,16 @@ public class Calc extends HttpServlet {
     }
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.service(req, resp);
         System.out.println("Я сервайс");

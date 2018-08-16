@@ -95,7 +95,6 @@ public class CreatorAnswer extends AbstractPageFactory {
 
     private void putDataInBD(Operation operation, HttpServletRequest req) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship");
             Statement statement = connection.createStatement();
             String sqlFormat = "yyyy.MM.dd HH24:mi:ss";
