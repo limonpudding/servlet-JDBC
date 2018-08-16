@@ -23,8 +23,8 @@ public class LoggerFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-
-        try (Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.151:1521:gmudb", "internship", "internship")) {
+        DataBase db = new DataBase("jdbc/db");
+        try (Connection connection = db.getConnection()) {
             Statement statement = connection.createStatement();
             String sqlFormat = "yyyy.MM.dd HH24:mi:ss";
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");

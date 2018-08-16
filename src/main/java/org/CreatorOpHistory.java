@@ -24,8 +24,7 @@ public class CreatorOpHistory extends AbstractPageFactory {
     }
 
     private List<DBRow> selectDataFromBD(){
-        DataBase db = new DataBase("jdbc/db");
-        try (Connection connection = db.getConnection()) {
+        try (Connection connection = dataBase.getValue().getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(QUERY);
             return createRowList(rs);
