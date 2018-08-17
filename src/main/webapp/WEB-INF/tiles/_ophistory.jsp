@@ -30,7 +30,7 @@
 <script>
     function openTable() {
         var str = '<%= request.getParameter("idSessii") %>';
-        if (str.length>0&&str!=='null'&&str!=='undefined') {
+        if (str.length > 0 && str !== 'null' && str !== 'undefined') {
             createTable(str);
         }
     }
@@ -38,6 +38,16 @@
     function openSecondPage() {
         $('#idSessii').val(idSessii);
         $('#sortForm').submit();
+    }
+
+    function openTable() {
+        var str = '${idSessiiPar}';
+        if (str != null && typeof str !== "undefined") {
+            str = str.trim();
+        }
+        if (str!=="") {
+            createTable();
+        }
     }
 
     function slidePrev() {
@@ -54,25 +64,32 @@
         slideNext();
         <c:forEach var="row" items="${fullOperationsHistory}">
         if (id === '${row.id()}') {
-            $('#secondTable').append(
-                '<tr>' +
-                '<td class="col hidden" title="${row.operationName()}">' +
-                '${row.operationName()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.op1()}">' +
-                '${row.op1()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.op2()}">' +
-                '${row.op2()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.answer()}">' +
-                '${row.answer()}' +
-                '</td>' +
-                '<td class="col" title="${row.time()}">' +
-                '${row.time()}' +
-                '</td>' +
-                '</tr>'
-            )
+            var row = document.getElementById('secondTable').insertRow();
+            var cell = row.insertCell();
+            cell.innerHTML ='${row.operationName()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.operationName()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.op1()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.op1()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.op2()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.op2()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.answer()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.answer()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.time()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.time()}');
         }
         </c:forEach>
     }
@@ -157,7 +174,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type='hidden' name='idSessii' value='' id='idSessii'/>
+                            <input type='hidden' name='idSessiiPar' value='' id='idSessii'/>
                             <input class="btn btn-primary" type="button" onclick="openSecondPage()" value="Выбрать">
                             <input class="btn btn-secondary" type="button" onclick="slidePrev()" value="Назад">
                         </div>
