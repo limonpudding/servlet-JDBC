@@ -57,23 +57,28 @@
             var row = document.getElementById('secondTable').insertRow();
             var cell = row.insertCell();
             cell.innerHTML ='${row.operationName()}';
-            cell.setAttribute('class', 'col hidden');
+            cell.classList.add('col');
+            cell.classList.add('hidden');
             cell.setAttribute('title', '${row.operationName()}');
             cell = row.insertCell();
             cell.innerHTML ='${row.op1()}';
-            cell.setAttribute('class', 'col hidden');
+            cell.classList.add('col');
+            cell.classList.add('hidden');
             cell.setAttribute('title', '${row.op1()}');
             cell = row.insertCell();
             cell.innerHTML ='${row.op2()}';
-            cell.setAttribute('class', 'col hidden');
+            cell.classList.add('col');
+            cell.classList.add('hidden');
             cell.setAttribute('title', '${row.op2()}');
             cell = row.insertCell();
             cell.innerHTML ='${row.answer()}';
-            cell.setAttribute('class', 'col hidden');
+            cell.classList.add('col');
+            cell.classList.add('hidden');
             cell.setAttribute('title', '${row.answer()}');
             cell = row.insertCell();
             cell.innerHTML ='${row.time()}';
-            cell.setAttribute('class', 'col hidden');
+            cell.classList.add('col');
+            cell.classList.add('hidden');
             cell.setAttribute('title', '${row.time()}');
         }
         </c:forEach>

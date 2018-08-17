@@ -10,7 +10,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreatorOpHistory extends AbstractPageFactory {
-
+    /*
+                        <c:forEach var="row" items="${rs.rows}">
+                        <tr>
+                            <td class="col hidden" title="${row.id()}">
+                                <c:choose>
+                                    <c:when test="${row.operation=='false'}">
+                                        ${row.id()}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" onclick="createTable('${row.id()}')">${row.id()}</a>
+                                    </c:otherwise>    <!-- else condition -->
+                                </c:choose>
+                            </td>
+                            <td class="col hidden" title="${row.ip()}">
+                                    ${row.ip()}
+                            </td>
+                            <td class="col">
+                                    ${row.sessionStartTime()}
+                            </td>
+                            <td class="col">
+                                    ${row.sessionEndTime()}
+                            </td>
+                        </tr>
+                    </c:forEach>
+     */
+/*
+select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'false' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is null
+union all
+select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'true' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is not null
+ */
     private static final String QUERY = "SELECT * FROM HISTORY";
     SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
@@ -123,7 +152,7 @@ public class CreatorOpHistory extends AbstractPageFactory {
                 modeStr = "ID";
         }
 
-        rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY ORDER BY " + modeStr + " " + orderStr);
+        rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM SESSIONS ORDER BY " + modeStr + " " + orderStr);
         return rs;
     }
 
