@@ -11,7 +11,7 @@
 
     <Resource
             name="H2/db" type="javax.sql.DataSource"
-            url="jdbc:h2:tcp://localhost/~/test"
+            url="jdbc:h2:mem:test"
             driverClassName="org.h2.Driver"
             username="limon" password="limon"
     />
