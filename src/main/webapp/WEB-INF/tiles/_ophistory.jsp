@@ -24,12 +24,10 @@
     .hidden {
         white-space: nowrap; /* Отменяем перенос текста */
         overflow: hidden; /* Обрезаем содержимое */
-        width: 100px;
         text-overflow: ellipsis;
     }
 </style>
 <script>
-
     function openTable() {
         var str = '<%= request.getParameter("idSessii") %>';
         if (str.length>0&&str!=='null'&&str!=='undefined') {
@@ -88,7 +86,6 @@
                     <div class="form-row">
                         <div class="form-group col-auto">
                             <select class="custom-select" id="mode" name="mode">
-                                <option value="time" selected>Столбец</option>
                                 <option value="idSession">ID</option>
                                 <option value="ip">IP</option>
                                 <option value="timeStart">Время создания сессии</option>
@@ -97,7 +94,6 @@
                         </div>
                         <div class="form-group col-auto">
                             <select class="custom-select" id="order" name="order">
-                                <option value="asc" selected>Порядок</option>
                                 <option value="asc">По возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>

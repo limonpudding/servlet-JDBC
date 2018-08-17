@@ -22,14 +22,14 @@ public class CreatorOpHistory extends AbstractPageFactory {
         String modeSort = page.getValue().getRequest().getParameter("mode");
         String orderSort = page.getValue().getRequest().getParameter("order");
         page.getValue().getRequest().setAttribute("fullOperationsHistory", selectDataFromBD(modeSort, orderSort));
-        page.getValue().getRequest().setAttribute("fullSessionsHistory", selectSessionsFromBD());
+        page.getValue().getRequest().setAttribute("fullSessionsHistory", selectSessionsFromBD(modeSort, orderSort));
         page.getValue().getRequest().getRequestDispatcher("ophistory.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
     }
 
-    private List<SessionsRow> selectSessionsFromBD() {
+    private List<SessionsRow> selectSessionsFromBD(String mode, String order) {
         try (Connection connection = dataBase.getValue().getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY");
+            ResultSet rs = getResultSessionsSet(mode, order, statement);// statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY");
             return createSessionsList(rs);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -57,8 +57,8 @@ public class CreatorOpHistory extends AbstractPageFactory {
         } else {
             orderStr = "asc";
         }
-        if(mode==null)
-            mode="";
+        if (mode == null)
+            mode = "";
         switch (mode) {
             case "idSession":
                 modeStr = "ID";
@@ -91,7 +91,39 @@ public class CreatorOpHistory extends AbstractPageFactory {
                 modeStr = "TIME";
         }
 
-        rs = statement.executeQuery(QUERY + " " +"ORDER BY "+ modeStr + " " + orderStr);
+        rs = statement.executeQuery(QUERY + " " + "ORDER BY " + modeStr + " " + orderStr);
+        return rs;
+    }
+
+    private ResultSet getResultSessionsSet(String mode, String order, Statement statement) throws SQLException {
+        ResultSet rs;
+        String orderStr;
+        String modeStr;
+        if ("desc".equals(order)) {
+            orderStr = "desc";
+        } else {
+            orderStr = "asc";
+        }
+        if (mode == null)
+            mode = "";
+        switch (mode) {
+            case "idSession":
+                modeStr = "ID";
+                break;
+            case "ip":
+                modeStr = "IP";
+                break;
+            case "timeStart":
+                modeStr = "TIMESTART";
+                break;
+            case "timeEnd":
+                modeStr = "TIMEEND";
+                break;
+            default:
+                modeStr = "ID";
+        }
+
+        rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY ORDER BY " + modeStr + " " + orderStr);
         return rs;
     }
 
