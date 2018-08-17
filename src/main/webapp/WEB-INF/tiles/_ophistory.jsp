@@ -29,6 +29,14 @@
     }
 </style>
 <script>
+
+    function openTable() {
+        var str = '<%= request.getParameter("idSessii") %>';
+        if (str.length>0&&str!=='null'&&str!=='undefined') {
+            createTable(str);
+        }
+    }
+
     function openSecondPage() {
         $('#idSessii').val(idSessii);
         $('#sortForm').submit();
@@ -44,7 +52,6 @@
 
     function createTable(id) {
         $('#secondTable').html('');
-
         window['idSessii'] = id;
         slideNext();
         <c:forEach var="row" items="${fullOperationsHistory}">
@@ -185,17 +192,10 @@
                 </table>
             </div>
         </div>
-        <script>
-            var str = '${idSessii}';
-            if (str != null && typeof str !== "undefined") {
-                str = str.trim();
-            }
-            if (str!=="") {
-                createTable();
-            }
-        </script>
     </div>
 </div>
-
+<script>
+    openTable();
+</script>
 
 
