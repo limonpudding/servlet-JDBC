@@ -24,11 +24,17 @@
     .hidden {
         white-space: nowrap; /* Отменяем перенос текста */
         overflow: hidden; /* Обрезаем содержимое */
-        width: 100px;
         text-overflow: ellipsis;
     }
 </style>
 <script>
+    function openTable() {
+        var str = '<%= request.getParameter("idSessii") %>';
+        if (str.length > 0 && str !== 'null' && str !== 'undefined') {
+            createTable(str);
+        }
+    }
+
     function openSecondPage() {
         $('#idSessii').val(idSessii);
         $('#sortForm').submit();
@@ -54,30 +60,36 @@
 
     function createTable(id) {
         $('#secondTable').html('');
-
         window['idSessii'] = id;
         slideNext();
         <c:forEach var="row" items="${fullOperationsHistory}">
         if (id === '${row.id()}') {
-            $('#secondTable').append(
-                '<tr>' +
-                '<td class="col hidden" title="${row.operationName()}">' +
-                '${row.operationName()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.op1()}">' +
-                '${row.op1()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.op2()}">' +
-                '${row.op2()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.answer()}">' +
-                '${row.answer()}' +
-                '</td>' +
-                '<td class="col" title="${row.time()}">' +
-                '${row.time()}' +
-                '</td>' +
-                '</tr>'
-            )
+            var row = document.getElementById('secondTable').insertRow();
+            var cell = row.insertCell();
+            cell.innerHTML ='${row.operationName()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.operationName()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.op1()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.op1()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.op2()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.op2()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.answer()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.answer()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.time()}';
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', '${row.time()}');
         }
         </c:forEach>
     }
@@ -91,7 +103,6 @@
                     <div class="form-row">
                         <div class="form-group col-auto">
                             <select class="custom-select" id="mode" name="mode">
-                                <option value="time" selected>Столбец</option>
                                 <option value="idSession">ID</option>
                                 <option value="ip">IP</option>
                                 <option value="timeStart">Время создания сессии</option>
@@ -100,7 +111,6 @@
                         </div>
                         <div class="form-group col-auto">
                             <select class="custom-select" id="order" name="order">
-                                <option value="asc" selected>Порядок</option>
                                 <option value="asc">По возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>
@@ -197,6 +207,8 @@
         </div>
     </div>
 </div>
-
+<script>
+    openTable();
+</script>
 
 

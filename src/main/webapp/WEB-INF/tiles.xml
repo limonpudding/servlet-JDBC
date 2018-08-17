@@ -39,7 +39,7 @@
     </definition>
     <!-- Operation History Page  -->
     <definition name="operationHistoryPage" extends="history.definition">
-        <put-attribute name="title" value="About" />
+        <put-attribute name="title" value="Operations History" />
         <put-attribute name="body" value="/WEB-INF/tiles/_ophistory.jsp" />
     </definition>
 </tiles-definitions>

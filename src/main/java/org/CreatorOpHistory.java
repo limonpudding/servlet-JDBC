@@ -10,7 +10,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreatorOpHistory extends AbstractPageFactory {
-
+    /*
+                        <c:forEach var="row" items="${rs.rows}">
+                        <tr>
+                            <td class="col hidden" title="${row.id()}">
+                                <c:choose>
+                                    <c:when test="${row.operation=='false'}">
+                                        ${row.id()}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" onclick="createTable('${row.id()}')">${row.id()}</a>
+                                    </c:otherwise>    <!-- else condition -->
+                                </c:choose>
+                            </td>
+                            <td class="col hidden" title="${row.ip()}">
+                                    ${row.ip()}
+                            </td>
+                            <td class="col">
+                                    ${row.sessionStartTime()}
+                            </td>
+                            <td class="col">
+                                    ${row.sessionEndTime()}
+                            </td>
+                        </tr>
+                    </c:forEach>
+     */
+/*
+select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'false' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is null
+union all
+select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'true' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is not null
+ */
     private static final String QUERY = "SELECT * FROM HISTORY";
     SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
@@ -22,14 +51,14 @@ public class CreatorOpHistory extends AbstractPageFactory {
         String modeSort = page.getValue().getRequest().getParameter("mode");
         String orderSort = page.getValue().getRequest().getParameter("order");
         page.getValue().getRequest().setAttribute("fullOperationsHistory", selectDataFromBD(modeSort, orderSort));
-        page.getValue().getRequest().setAttribute("fullSessionsHistory", selectSessionsFromBD());
+        page.getValue().getRequest().setAttribute("fullSessionsHistory", selectSessionsFromBD(modeSort, orderSort));
         page.getValue().getRequest().getRequestDispatcher("ophistory.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
     }
 
-    private List<SessionsRow> selectSessionsFromBD() {
+    private List<SessionsRow> selectSessionsFromBD(String mode, String order) {
         try (Connection connection = dataBase.getValue().getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY");
+            ResultSet rs = getResultSessionsSet(mode, order, statement);// statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY");
             return createSessionsList(rs);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -57,8 +86,8 @@ public class CreatorOpHistory extends AbstractPageFactory {
         } else {
             orderStr = "asc";
         }
-        if(mode==null)
-            mode="";
+        if (mode == null)
+            mode = "";
         switch (mode) {
             case "idSession":
                 modeStr = "ID";
@@ -91,7 +120,39 @@ public class CreatorOpHistory extends AbstractPageFactory {
                 modeStr = "TIME";
         }
 
-        rs = statement.executeQuery(QUERY + " " +"ORDER BY "+ modeStr + " " + orderStr);
+        rs = statement.executeQuery(QUERY + " " + "ORDER BY " + modeStr + " " + orderStr);
+        return rs;
+    }
+
+    private ResultSet getResultSessionsSet(String mode, String order, Statement statement) throws SQLException {
+        ResultSet rs;
+        String orderStr;
+        String modeStr;
+        if ("desc".equals(order)) {
+            orderStr = "desc";
+        } else {
+            orderStr = "asc";
+        }
+        if (mode == null)
+            mode = "";
+        switch (mode) {
+            case "idSession":
+                modeStr = "ID";
+                break;
+            case "ip":
+                modeStr = "IP";
+                break;
+            case "timeStart":
+                modeStr = "TIMESTART";
+                break;
+            case "timeEnd":
+                modeStr = "TIMEEND";
+                break;
+            default:
+                modeStr = "ID";
+        }
+
+        rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM SESSIONS ORDER BY " + modeStr + " " + orderStr);
         return rs;
     }
 

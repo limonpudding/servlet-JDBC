@@ -49,6 +49,13 @@
     <!--<listener>-->
         <!--<listener-class>org.ListenerHttpContextSessionAttributes</listener-class>-->
     <!--</listener>-->
+    <!--
+    <context-param>
+        <param-name></param-name>
+        <param-value></param-value>
+    </context-param>
+-->
+
 
     <context-param>
         <param-name> org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG </param-name>
