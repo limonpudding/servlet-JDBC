@@ -3,6 +3,7 @@ package org;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URL;
@@ -14,7 +15,7 @@ public abstract class AbstractPageFactory {
     protected Lazy<DataBase> dataBase = new Lazy<org.DataBase>() {
         @Override
         protected org.DataBase setValue() {
-            return new DataBase("jdbc/db");
+            return new DataBase(Calc.getDBName());
         }
     };
 

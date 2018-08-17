@@ -1,5 +1,7 @@
 package org;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,7 @@ import java.sql.Statement;
 
 public class Calc extends HttpServlet {
     public static String globalURL = "http://localhost/";
-
+    protected static String DBName;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -33,6 +35,15 @@ public class Calc extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.service(req, resp);
         System.out.println("Я сервайс");
+    }
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        DBName = this.getServletConfig().getInitParameter("DBName");
+    }
+
+    public static String getDBName() {
+        return DBName;
     }
 }

@@ -94,30 +94,30 @@ public class CreatorAnswer extends AbstractPageFactory {
     private void putDataInBD(Operation operation, HttpServletRequest req) {
         try (Connection connection = dataBase.getValue().getConnection()) {
             Statement statement = connection.createStatement();
-            String sqlFormat = "yyyy.MM.dd HH24:mi:ss";
+            String sqlFormat = "yyyy.MM.dd hh:mm:ss";
             String sessionId = req.getSession().getId();
-            SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-            statement.execute("update SESSIONS set TIMEEND=" + "to_date('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + "')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
+            statement.execute("update SESSIONS set TIMEEND=" + "PARSEDATETIME('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + "')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
             switch (operation.operation) {
                 case "sum":
                     statement.execute("insert into SUM (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
                     break;
                 case "sub":
                     statement.execute("insert into SUB (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
                     break;
                 case "mul":
                     statement.execute("insert into MUL (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
                     break;
                 case "div":
                     statement.execute("insert into DIV (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
                     break;
                 case "fib":
                     statement.execute("insert into FIB (ID, FIRSTOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.result + "','" + sessionId + "'," + "to_date('" + operation.date() + "','" + sqlFormat + "')" + ")");
+                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
                     break;
             }
         } catch (Exception e) {

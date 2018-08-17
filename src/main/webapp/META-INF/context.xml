@@ -8,4 +8,11 @@
             driverClassName="oracle.jdbc.driver.OracleDriver"
             username="internship" password="internship"
     />
+
+    <Resource
+            name="H2/db" type="javax.sql.DataSource"
+            url="jdbc:h2:tcp://localhost/~/test"
+            driverClassName="org.h2.Driver"
+            username="limon" password="limon"
+    />
 </Context>

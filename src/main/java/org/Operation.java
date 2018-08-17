@@ -10,7 +10,7 @@ class Operation {
     String result;
     Date date;
     String idOperation;
-    SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
 
     Operation(Date date, String a, String b, String operation, String result, String idOperation) {
         this.date = date;
@@ -27,7 +27,7 @@ class Operation {
 
     @Override
     public String toString() {
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
         if (operation.equals("fib"))
             return formatForDateNow.format(date) + ": " + operation + "(" + a + ") = " + result;
         return formatForDateNow.format(date) + ": " + a + " " + operation + " " + b + " = " + result;
