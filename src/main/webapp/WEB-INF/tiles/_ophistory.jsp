@@ -30,7 +30,7 @@
 <script>
     function openTable() {
         var str = '<%= request.getParameter("idSessii") %>';
-        if (str.length>0&&str!=='null'&&str!=='undefined') {
+        if (str.length > 0 && str !== 'null' && str !== 'undefined') {
             createTable(str);
         }
     }
@@ -54,25 +54,27 @@
         slideNext();
         <c:forEach var="row" items="${fullOperationsHistory}">
         if (id === '${row.id()}') {
-            $('#secondTable').append(
-                '<tr>' +
-                '<td class="col hidden" title="${row.operationName()}">' +
-                '${row.operationName()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.op1()}">' +
-                '${row.op1()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.op2()}">' +
-                '${row.op2()}' +
-                '</td>' +
-                '<td class="col hidden" title="${row.answer()}">' +
-                '${row.answer()}' +
-                '</td>' +
-                '<td class="col" title="${row.time()}">' +
-                '${row.time()}' +
-                '</td>' +
-                '</tr>'
-            )
+            var row = document.getElementById('secondTable').insertRow();
+            var cell = row.insertCell();
+            cell.innerHTML ='${row.operationName()}';
+            cell.setAttribute('class', 'col hidden');
+            cell.setAttribute('title', '${row.operationName()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.op1()}';
+            cell.setAttribute('class', 'col hidden');
+            cell.setAttribute('title', '${row.op1()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.op2()}';
+            cell.setAttribute('class', 'col hidden');
+            cell.setAttribute('title', '${row.op2()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.answer()}';
+            cell.setAttribute('class', 'col hidden');
+            cell.setAttribute('title', '${row.answer()}');
+            cell = row.insertCell();
+            cell.innerHTML ='${row.time()}';
+            cell.setAttribute('class', 'col hidden');
+            cell.setAttribute('title', '${row.time()}');
         }
         </c:forEach>
     }
