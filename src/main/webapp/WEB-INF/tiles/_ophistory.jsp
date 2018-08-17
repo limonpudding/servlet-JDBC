@@ -34,6 +34,16 @@
         $('#sortForm').submit();
     }
 
+    function openTable() {
+        var str = '${idSessiiPar}';
+        if (str != null && typeof str !== "undefined") {
+            str = str.trim();
+        }
+        if (str!=="") {
+            createTable();
+        }
+    }
+
     function slidePrev() {
         $('#carouselExampleControls').carousel('prev');
     }
@@ -154,7 +164,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type='hidden' name='idSessii' value='' id='idSessii'/>
+                            <input type='hidden' name='idSessiiPar' value='' id='idSessii'/>
                             <input class="btn btn-primary" type="button" onclick="openSecondPage()" value="Выбрать">
                             <input class="btn btn-secondary" type="button" onclick="slidePrev()" value="Назад">
                         </div>
@@ -185,15 +195,6 @@
                 </table>
             </div>
         </div>
-        <script>
-            var str = '${idSessii}';
-            if (str != null && typeof str !== "undefined") {
-                str = str.trim();
-            }
-            if (str!=="") {
-                createTable();
-            }
-        </script>
     </div>
 </div>
 

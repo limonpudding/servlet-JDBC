@@ -29,7 +29,6 @@ public abstract class AbstractPageFactory {
     private static Injector injector = Guice.createInjector(new LongArithmeticModule());
 
 
-    //public AbstractPageFactory() {}
     protected AbstractPageFactory(HttpServletRequest req, HttpServletResponse resp){
         this.request = req;
         this.response = resp;
