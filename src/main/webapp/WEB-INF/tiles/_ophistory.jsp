@@ -35,9 +35,31 @@
         }
     }
 
-    function openSecondPage() {
-        $('#idSessii').val(idSessii);
-        $('#sortForm').submit();
+    function createListFirstPage() {
+        $(document).ready(function () {
+            $("button").click(function () { // задаем функцию при нажатиии на элемент <button>
+                $.ajax({
+                    method: "POST", // метод HTTP, используемый для запроса
+                    url: "localhost", // строка, содержащая URL адрес, на который отправляется запрос
+                    data: { // данные, которые будут отправлены на сервер
+                        table: '1',
+                        mode: $('#firstSelectorMode').val(),
+                        order: $('#firstSelectorDirection').val()
+                        //id: window['idSessii']
+                    },
+                    success: [function (firstTableRows) {
+                        $("p").text("User saved: " + msg);
+                    }],
+                    statusCode: {
+                        200: function () { // выполнить функцию если код ответа HTTP 200
+                            console.log("Ok");
+                        }
+                    }
+                })
+            });
+        });
+        // $('#idSessii').val(idSessii);
+        // $('#sortForm').submit();
     }
 
     function openTable() {
@@ -45,9 +67,15 @@
         if (str != null && typeof str !== "undefined") {
             str = str.trim();
         }
-        if (str!=="") {
+        if (str !== "") {
             createTable();
         }
+    }
+
+    function fullCreateTable(id) {
+        window['idSessii'] = id;
+        createTable();
+        slideNext();
     }
 
     function slidePrev() {
@@ -58,40 +86,71 @@
         $('#carouselExampleControls').carousel('next');
     }
 
-    function createTable(id) {
+    function createFirstTable(tableRows) {
+        $('#firstTable').html('');
+        var row;
+        var cell;
+        tableRows.forEach(function (row) {
+            row = document.getElementById('firstTable').insertRow();
+            cell = row.insertCell();
+            if (row['operation'] === 'false') {
+                cell.innerHTML = row['id'];
+            } else {
+                cell.innerHTML ="<a href='#' onclick='fullCreateTable("+row['id']+")>"+row['id']+"</a>";
+            }
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', row['id']);
+            cell = row.insertCell();
+            cell.innerHTML = row['ip'];
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', row['ip']);
+            cell = row.insertCell();
+            cell.innerHTML = row['sessionStartTime'];
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', row['sessionStartTime']);
+            cell = row.insertCell();
+            cell.innerHTML = row['sessionEndTime'];
+            cell.classList.add('col');
+            cell.classList.add('hidden');
+            cell.setAttribute('title', row['sessionEndTime']);
+        });
+    }
+
+    function createSecondTable(tableRows) {
         $('#secondTable').html('');
-        window['idSessii'] = id;
-        slideNext();
-        <c:forEach var="row" items="${fullOperationsHistory}">
-        if (id === '${row.id()}') {
-            var row = document.getElementById('secondTable').insertRow();
-            var cell = row.insertCell();
-            cell.innerHTML ='${row.operationName()}';
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', '${row.operationName()}');
-            cell = row.insertCell();
-            cell.innerHTML ='${row.op1()}';
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', '${row.op1()}');
-            cell = row.insertCell();
-            cell.innerHTML ='${row.op2()}';
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', '${row.op2()}');
-            cell = row.insertCell();
-            cell.innerHTML ='${row.answer()}';
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', '${row.answer()}');
-            cell = row.insertCell();
-            cell.innerHTML ='${row.time()}';
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', '${row.time()}');
-        }
-        </c:forEach>
+        tableRows.forEach(function (row) {
+            if (id === row.id) {
+                var row = document.getElementById('secondTable').insertRow();
+                var cell = row.insertCell();
+                cell.innerHTML = row['operationName'];
+                cell.classList.add('col');
+                cell.classList.add('hidden');
+                cell.setAttribute('title', row['operationName']);
+                cell = row.insertCell();
+                cell.innerHTML = row['op1'];
+                cell.classList.add('col');
+                cell.classList.add('hidden');
+                cell.setAttribute('title', row['op1']);
+                cell = row.insertCell();
+                cell.innerHTML = row['op2'];
+                cell.classList.add('col');
+                cell.classList.add('hidden');
+                cell.setAttribute('title', row['op2']);
+                cell = row.insertCell();
+                cell.innerHTML = row['answer'];
+                cell.classList.add('col');
+                cell.classList.add('hidden');
+                cell.setAttribute('title', row['answer']);
+                cell = row.insertCell();
+                cell.innerHTML = row['time'];
+                cell.classList.add('col');
+                cell.classList.add('hidden');
+                cell.setAttribute('title', row['time']);
+            }
+        });
     }
 </script>
 <div class="container" style="height: 80%;overflow-y: auto">
@@ -102,7 +161,7 @@
                 <form action="ophistory" method="get">
                     <div class="form-row">
                         <div class="form-group col-auto">
-                            <select class="custom-select" id="mode" name="mode">
+                            <select class="custom-select" id="mode" name="mode" id="firstSelectorMode">
                                 <option value="idSession">ID</option>
                                 <option value="ip">IP</option>
                                 <option value="timeStart">Время создания сессии</option>
@@ -110,13 +169,14 @@
                             </select>
                         </div>
                         <div class="form-group col-auto">
-                            <select class="custom-select" id="order" name="order">
+                            <select class="custom-select" id="order" name="order" id="firstSelectorDirection">
                                 <option value="asc">По возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>
                         </div>
                         <div class="col">
-                            <input class="btn btn-primary" type="submit" value="Выбрать">
+                            <input class="btn btn-primary" type="button" onclick="createListFirstPage()"
+                                   value="Выбрать">
                         </div>
                     </div>
                 </form>
@@ -137,30 +197,8 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <c:forEach var="row" items="${fullSessionsHistory}">
-                        <tr>
-                            <td class="col hidden" title="${row.id()}">
-                                <c:choose>
-                                    <c:when test="${row.operation()=='false'}">
-                                        ${row.id()}
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="#" onclick="createTable('${row.id()}')">${row.id()}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td class="col hidden" title="${row.ip()}">
-                                    ${row.ip()}
-                            </td>
-                            <td class="col">
-                                    ${row.sessionStartTime()}
-                            </td>
-                            <td class="col">
-                                    ${row.sessionEndTime()}
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <tbody id="firstTable">
+                    <%--заполняется динамически createFirstTable js--%>
                     </tbody>
                 </table>
             </div>
@@ -169,20 +207,20 @@
                 <form action="ophistory" method="get" id="sortForm">
                     <div class="form-row">
                         <div class="form-group col-auto">
-                            <select class="custom-select" name="mode">
+                            <select class="custom-select" name="mode" id="secondSelectorMode">
                                 <option value="operation">Операция</option>
                                 <option value="time">Время операции</option>
                             </select>
                         </div>
                         <div class="form-group col-auto">
-                            <select class="custom-select" name="order">
+                            <select class="custom-select" name="order" id="secondSelectorDirection">
                                 <option value="asc">По возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>
                         </div>
                         <div class="col">
                             <input type='hidden' name='idSessiiPar' value='' id='idSessii'/>
-                            <input class="btn btn-primary" type="button" onclick="openSecondPage()" value="Выбрать">
+                            <input class="btn btn-primary" type="button" onclick="sortSecondPage()" value="Выбрать">
                             <input class="btn btn-secondary" type="button" onclick="slidePrev()" value="Назад">
                         </div>
                     </div>
