@@ -141,7 +141,14 @@
                     <c:forEach var="row" items="${fullSessionsHistory}">
                         <tr>
                             <td class="col hidden" title="${row.id()}">
-                                <a href="#" onclick="createTable('${row.id()}')">${row.id()}</a>
+                                <c:choose>
+                                    <c:when test="${row.operation()=='false'}">
+                                        ${row.id()}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" onclick="createTable('${row.id()}')">${row.id()}</a>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                             <td class="col hidden" title="${row.ip()}">
                                     ${row.ip()}

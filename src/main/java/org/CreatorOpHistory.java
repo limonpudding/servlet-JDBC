@@ -152,7 +152,9 @@ select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 't
                 modeStr = "ID";
         }
 
-        rs = statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM SESSIONS ORDER BY " + modeStr + " " + orderStr);
+        rs = statement.executeQuery("select * from (select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'false' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is null\n" +
+                "union all\n" +
+                "select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'true' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is not null) as temp order by " + modeStr + " " + orderStr);
         return rs;
     }
 
@@ -242,12 +244,14 @@ select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 't
         public String ip;
         public String sessionStartTime;
         public String sessionEndTime;
+        public String operation;
 
         private SessionsRow(ResultSet rs) throws SQLException {
             id = rs.getString(1);
             ip = rs.getString(2);
             sessionStartTime = rs.getString(3);
             sessionEndTime = rs.getString(4);
+            operation = rs.getString(5);
         }
 
         public String id() {
@@ -264,6 +268,10 @@ select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 't
 
         public String sessionEndTime() {
             return sessionEndTime;
+        }
+
+        public String operation() {
+            return operation;
         }
     }
 
