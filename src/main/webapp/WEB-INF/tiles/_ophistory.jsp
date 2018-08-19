@@ -28,54 +28,51 @@
     }
 </style>
 <script>
-    function openTable() {
-        var str = '<%= request.getParameter("idSessii") %>';
-        if (str.length > 0 && str !== 'null' && str !== 'undefined') {
-            createTable(str);
-        }
+    function createListFirstPage() {
+        var tableInfo = {
+            'table': '1',
+            'mode': $('#firstSelectorMode').val(),
+            'order': $('#firstSelectorDirection').val()
+        };
+        $.ajax({
+            method: "POST", // метод HTTP, используемый для запроса
+            url: "/", // строка, содержащая URL адрес, на который отправляется запрос
+            data: tableInfo,
+            success: [function (firstTableRows) {
+                //$("p").text("User saved: " + msg);
+                $('#firstTable').html(firstTableRows);
+            }],
+            statusCode: {
+                200: function () { // выполнить функцию если код ответа HTTP 200
+                    console.log("Ok");
+                }
+            }
+        });
     }
 
-    function createListFirstPage() {
-        $(document).ready(function () {
-            $("button").click(function () { // задаем функцию при нажатиии на элемент <button>
-                $.ajax({
-                    method: "POST", // метод HTTP, используемый для запроса
-                    url: "localhost", // строка, содержащая URL адрес, на который отправляется запрос
-                    data: { // данные, которые будут отправлены на сервер
-                        table: '1',
-                        mode: $('#firstSelectorMode').val(),
-                        order: $('#firstSelectorDirection').val()
-                        //id: window['idSessii']
-                    },
-                    success: [function (firstTableRows) {
-                        $("p").text("User saved: " + msg);
-                    }],
-                    statusCode: {
-                        200: function () { // выполнить функцию если код ответа HTTP 200
-                            console.log("Ok");
-                        }
-                    }
-                })
-            });
+    function createListSecondPage() {
+        var tableInfo = {
+            'id': window['idSession'],
+            'table': '2',
+            'mode': $('#secondSelectorMode').val(),
+            'order': $('#secondSelectorDirection').val()
+        };
+        $.ajax({
+            method: "POST", // метод HTTP, используемый для запроса
+            url: "/", // строка, содержащая URL адрес, на который отправляется запрос
+            data: tableInfo,
+            success: [function (secondTableRows) {
+                //$("p").text("User saved: " + msg);
+                $('#secondTable').html(secondTableRows);
+            }],
+            statusCode: {
+                200: function () { // выполнить функцию если код ответа HTTP 200
+                    console.log("Ok");
+                }
+            }
         });
         // $('#idSessii').val(idSessii);
         // $('#sortForm').submit();
-    }
-
-    function openTable() {
-        var str = '${idSessiiPar}';
-        if (str != null && typeof str !== "undefined") {
-            str = str.trim();
-        }
-        if (str !== "") {
-            createTable();
-        }
-    }
-
-    function fullCreateTable(id) {
-        window['idSessii'] = id;
-        createTable();
-        slideNext();
     }
 
     function slidePrev() {
@@ -86,71 +83,10 @@
         $('#carouselExampleControls').carousel('next');
     }
 
-    function createFirstTable(tableRows) {
-        $('#firstTable').html('');
-        var row;
-        var cell;
-        tableRows.forEach(function (row) {
-            row = document.getElementById('firstTable').insertRow();
-            cell = row.insertCell();
-            if (row['operation'] === 'false') {
-                cell.innerHTML = row['id'];
-            } else {
-                cell.innerHTML ="<a href='#' onclick='fullCreateTable("+row['id']+")>"+row['id']+"</a>";
-            }
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', row['id']);
-            cell = row.insertCell();
-            cell.innerHTML = row['ip'];
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', row['ip']);
-            cell = row.insertCell();
-            cell.innerHTML = row['sessionStartTime'];
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', row['sessionStartTime']);
-            cell = row.insertCell();
-            cell.innerHTML = row['sessionEndTime'];
-            cell.classList.add('col');
-            cell.classList.add('hidden');
-            cell.setAttribute('title', row['sessionEndTime']);
-        });
-    }
-
-    function createSecondTable(tableRows) {
-        $('#secondTable').html('');
-        tableRows.forEach(function (row) {
-            if (id === row.id) {
-                var row = document.getElementById('secondTable').insertRow();
-                var cell = row.insertCell();
-                cell.innerHTML = row['operationName'];
-                cell.classList.add('col');
-                cell.classList.add('hidden');
-                cell.setAttribute('title', row['operationName']);
-                cell = row.insertCell();
-                cell.innerHTML = row['op1'];
-                cell.classList.add('col');
-                cell.classList.add('hidden');
-                cell.setAttribute('title', row['op1']);
-                cell = row.insertCell();
-                cell.innerHTML = row['op2'];
-                cell.classList.add('col');
-                cell.classList.add('hidden');
-                cell.setAttribute('title', row['op2']);
-                cell = row.insertCell();
-                cell.innerHTML = row['answer'];
-                cell.classList.add('col');
-                cell.classList.add('hidden');
-                cell.setAttribute('title', row['answer']);
-                cell = row.insertCell();
-                cell.innerHTML = row['time'];
-                cell.classList.add('col');
-                cell.classList.add('hidden');
-                cell.setAttribute('title', row['time']);
-            }
-        });
+    function openSecondTable(id) {
+        window['idSession'] = id;
+        createListSecondPage();
+        slideNext();
     }
 </script>
 <div class="container" style="height: 80%;overflow-y: auto">
@@ -161,7 +97,7 @@
                 <form action="ophistory" method="get">
                     <div class="form-row">
                         <div class="form-group col-auto">
-                            <select class="custom-select" id="mode" name="mode" id="firstSelectorMode">
+                            <select class="custom-select" name="mode" id="firstSelectorMode">
                                 <option value="idSession">ID</option>
                                 <option value="ip">IP</option>
                                 <option value="timeStart">Время создания сессии</option>
@@ -169,7 +105,7 @@
                             </select>
                         </div>
                         <div class="form-group col-auto">
-                            <select class="custom-select" id="order" name="order" id="firstSelectorDirection">
+                            <select class="custom-select" name="order" id="firstSelectorDirection">
                                 <option value="asc">По возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>
@@ -198,7 +134,7 @@
                     </tr>
                     </thead>
                     <tbody id="firstTable">
-                    <%--заполняется динамически createFirstTable js--%>
+                    <%--заполняется динамически--%>
                     </tbody>
                 </table>
             </div>
@@ -219,8 +155,8 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type='hidden' name='idSessiiPar' value='' id='idSessii'/>
-                            <input class="btn btn-primary" type="button" onclick="sortSecondPage()" value="Выбрать">
+                            <input class="btn btn-primary" type="button" onclick="createListSecondPage()"
+                                   value="Выбрать">
                             <input class="btn btn-secondary" type="button" onclick="slidePrev()" value="Назад">
                         </div>
                     </div>
@@ -246,14 +182,18 @@
                     </tr>
                     </thead>
                     <tbody id="secondTable">
+                    <%--заполняется динамически--%>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 <script>
-    openTable();
+    createListFirstPage();
 </script>
 
 
