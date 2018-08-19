@@ -36,7 +36,7 @@
         };
         $.ajax({
             method: "POST", // метод HTTP, используемый для запроса
-            url: "/", // строка, содержащая URL адрес, на который отправляется запрос
+            url: "", // строка, содержащая URL адрес, на который отправляется запрос
             data: tableInfo,
             success: [function (firstTableRows) {
                 //$("p").text("User saved: " + msg);
@@ -59,7 +59,7 @@
         };
         $.ajax({
             method: "POST", // метод HTTP, используемый для запроса
-            url: "/", // строка, содержащая URL адрес, на который отправляется запрос
+            url: "", // строка, содержащая URL адрес, на который отправляется запрос
             data: tableInfo,
             success: [function (secondTableRows) {
                 //$("p").text("User saved: " + msg);

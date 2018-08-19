@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Calc extends HttpServlet {
@@ -60,6 +61,19 @@ public class Calc extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DataBase db = new DataBase(Calc.getDBName());
+        try (Connection connection = db.getConnection()) {
+            Statement statement = connection.createStatement();
+            String sqlFormat = "yyyy.MM.dd hh:mm:ss";
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
+            if (req.getSession().isNew()) {
+                statement.execute("insert into SESSIONS (ID, IP, TIMESTART, TIMEEND) values ('" + req.getSession().getId() + "','" + req.getRemoteAddr() + "', PARSEDATETIME('" + formatForDateNow.format(new java.util.Date(req.getSession().getCreationTime())) + "','" + sqlFormat + " a','en')," + "PARSEDATETIME('" + formatForDateNow.format(new java.util.Date(req.getSession().getCreationTime())) + "','" + sqlFormat + " a','en')" + ")");
+            } else {
+                statement.execute("update SESSIONS set TIMEEND=" + "PARSEDATETIME('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + " a','en')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         super.service(req, resp);
         System.out.println("Я сервайс");
     }

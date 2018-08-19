@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Ответ:</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" readonly>${answer}</textarea>
-                    <a href="http://localhost/calc">Калькулятор</a>
+                    <a href="calc">Калькулятор</a>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">История операций:</label>
