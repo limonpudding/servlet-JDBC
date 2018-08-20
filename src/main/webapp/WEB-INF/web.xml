@@ -29,7 +29,7 @@
         <servlet-class>org.Calc</servlet-class>
         <init-param>
             <param-name>DBName</param-name>
-            <param-value>H2/db</param-value>
+            <param-value>jdbc/db</param-value>
         </init-param>
     </servlet>
 

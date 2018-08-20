@@ -60,13 +60,21 @@ public class Calc extends HttpServlet {
         super.service(req, resp);
         DataBase db = new DataBase(Calc.getDBName());
         try (Connection connection = db.getConnection()) {
-            Statement statement = connection.createStatement();
-            String sqlFormat = "yyyy.MM.dd hh:mm:ss";
-            SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
+            PreparedStatement insert = connection.prepareStatement("insert into SESSIONS (ID, IP, TIMESTART, TIMEEND) values (?,?,?,?)");
+            PreparedStatement update = connection.prepareStatement("update SESSIONS set TIMEEND=? where SESSIONS.ID =?");
+
+            insert.setString(1, req.getSession().getId());
+            insert.setString(2, req.getRemoteAddr());
+            insert.setTimestamp(3, new java.sql.Timestamp(req.getSession().getCreationTime()));
+            insert.setTimestamp(4, new java.sql.Timestamp(req.getSession().getCreationTime()));
+
+            update.setTimestamp(1, new java.sql.Timestamp(req.getSession().getLastAccessedTime()));
+            update.setString(2, req.getSession().getId());
+
             if (req.getSession().isNew()) {
-                statement.execute("insert into SESSIONS (ID, IP, TIMESTART, TIMEEND) values ('" + req.getSession().getId() + "','" + req.getRemoteAddr() + "', PARSEDATETIME('" + formatForDateNow.format(new java.util.Date(req.getSession().getCreationTime())) + "','" + sqlFormat + " a','en')," + "PARSEDATETIME('" + formatForDateNow.format(new java.util.Date(req.getSession().getCreationTime())) + "','" + sqlFormat + " a','en')" + ")");
+                insert.executeUpdate();
             } else {
-                statement.execute("update SESSIONS set TIMEEND=" + "PARSEDATETIME('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + " a','en')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
+                update.executeUpdate();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -79,6 +87,10 @@ public class Calc extends HttpServlet {
         super.init();
         DBName = this.getServletConfig().getInitParameter("DBName");
         try (Connection connection = new DataBase(DBName).getConnection()) {
+            if (!connection.getMetaData().getDatabaseProductName().toUpperCase().contains("H2")) {
+                return;
+            }
+
             Statement statement = connection.createStatement();
             statement.execute("" +
                     "create table DIV\n" +
@@ -207,6 +219,7 @@ public class Calc extends HttpServlet {
                     "  FROM FIB\n" +
                     "    join SESSIONS on FIB.IDSESSION = SESSIONS.ID\n"
             );
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

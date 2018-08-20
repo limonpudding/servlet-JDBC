@@ -43,7 +43,7 @@ public class CreatorTables extends AbstractPageFactory {
     private List<SessionsRow> selectSessionsFromBD(String mode, String order) {
         try (Connection connection = dataBase.getValue().getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet rs = getResultSessionsSet(mode, order, statement);// statement.executeQuery("SELECT DISTINCT ID,IP,TIMESTART,TIMEEND FROM HISTORY");
+            ResultSet rs = getResultSessionsSet(mode, order, statement);
             return createSessionsList(rs);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -127,7 +127,7 @@ public class CreatorTables extends AbstractPageFactory {
 
         rs = statement.executeQuery("select * from (select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'false' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is null\n" +
                 "union all\n" +
-                "select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'true' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is not null) as temp order by " + modeStr + " " + orderStr);
+                "select distinct sessions.id, sessions.ip,sessions.timestart,sessions.timeend, 'true' as operation from SESSIONS left join history on SESSIONS.id = HISTORY.id where operation is not null) order by " + modeStr + " " + orderStr);
         return rs;
     }
 

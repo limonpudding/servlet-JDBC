@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.Annotation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,32 +85,25 @@ public class CreatorAnswer extends AbstractPageFactory {
 
     private void putDataInBD(Operation operation, HttpServletRequest req) {
         try (Connection connection = dataBase.getValue().getConnection()) {
-            Statement statement = connection.createStatement();
-            String sqlFormat = "yyyy.MM.dd hh:mm:ss";
-            String sessionId = req.getSession().getId();
-            SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
-            statement.execute("update SESSIONS set TIMEEND=" + "PARSEDATETIME('" + formatForDateNow.format(new Date(req.getSession().getLastAccessedTime())) + "','" + sqlFormat + "')" + " where SESSIONS.ID = '" + req.getSession().getId() + "'");
             switch (operation.operation) {
-                case "sum":
-                    statement.execute("insert into SUM (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
-                    break;
-                case "sub":
-                    statement.execute("insert into SUB (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
-                    break;
-                case "mul":
-                    statement.execute("insert into MUL (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
-                    break;
-                case "div":
-                    statement.execute("insert into DIV (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.b + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
-                    break;
                 case "fib":
-                    statement.execute("insert into FIB (ID, FIRSTOPERAND, ANSWER, IDSESSION, TIME) values" +
-                            " ('" + operation.idOperation + "','" + operation.a + "','" + operation.result + "','" + sessionId + "'," + "PARSEDATETIME('" + operation.date() + "','" + sqlFormat + " a','en')" + ")");
+                    PreparedStatement fibonacci = connection.prepareStatement("insert into " + operation.operation + " (ID, FIRSTOPERAND, ANSWER, IDSESSION, TIME) values (?,?,?,?,?)");
+                    fibonacci.setString(1, operation.idOperation);
+                    fibonacci.setString(2, operation.a);
+                    fibonacci.setString(3, operation.result);
+                    fibonacci.setString(4, req.getSession().getId());
+                    fibonacci.setTimestamp(5, new Timestamp(operation.date.getTime()));
+                    fibonacci.executeUpdate();
                     break;
+                default:
+                    PreparedStatement arithmetic = connection.prepareStatement("insert into " + operation.operation + " (ID, FIRSTOPERAND, SECONDOPERAND, ANSWER, IDSESSION, TIME) values (?,?,?,?,?,?)");
+                    arithmetic.setString(1, operation.idOperation);
+                    arithmetic.setString(2, operation.a);
+                    arithmetic.setString(3, operation.b);
+                    arithmetic.setString(4, operation.result);
+                    arithmetic.setString(5, req.getSession().getId());
+                    arithmetic.setTimestamp(6, new Timestamp(operation.date.getTime()));
+                    arithmetic.executeUpdate();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

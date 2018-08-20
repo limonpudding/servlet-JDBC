@@ -20,7 +20,7 @@ class Operation {
     @JsonIgnore
     String idOperation;
     @JsonIgnore
-    SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
+    SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
     Operation(){
     }
@@ -40,9 +40,8 @@ class Operation {
 
     @Override
     public String toString() {
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
         if (operation.equals("fib"))
-            return formatForDateNow.format(date) + ": " + operation + "(" + a + ") = " + result;
-        return formatForDateNow.format(date) + ": " + a + " " + operation + " " + b + " = " + result;
+            return formatForDateNow.format(date) + " : " + operation + "(" + a + ") = " + result;
+        return formatForDateNow.format(date) + " : " + a + " " + operation + " " + b + " = " + result;
     }
 }

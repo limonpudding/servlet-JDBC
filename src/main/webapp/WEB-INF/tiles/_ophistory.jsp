@@ -100,14 +100,14 @@
                             <select class="custom-select" name="mode" id="firstSelectorMode">
                                 <option value="idSession">ID</option>
                                 <option value="ip">IP</option>
-                                <option value="timeStart">Время создания сессии</option>
+                                <option value="timeStart" selected>Время создания сессии</option>
                                 <option value="timeEnd">Время завершения сессии</option>
                             </select>
                         </div>
                         <div class="form-group col-auto">
                             <select class="custom-select" name="order" id="firstSelectorDirection">
                                 <option value="asc">По возрастанию</option>
-                                <option value="desc">По убыванию</option>
+                                <option value="desc" selected>По убыванию</option>
                             </select>
                         </div>
                         <div class="col">
