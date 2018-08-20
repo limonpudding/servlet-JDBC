@@ -21,6 +21,7 @@ public class Calc extends HttpServlet {
     public static String globalURL = "http://localhost/";
     SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
     protected static String DBName;
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -39,14 +40,12 @@ public class Calc extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
         StringBuffer jb = new StringBuffer();
-        String line;
         try {
             BufferedReader reader = req.getReader();
-            while ((line = reader.readLine()) != null)
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 jb.append(line);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -58,6 +57,7 @@ public class Calc extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.service(req, resp);
         DataBase db = new DataBase(Calc.getDBName());
         try (Connection connection = db.getConnection()) {
             Statement statement = connection.createStatement();
@@ -71,7 +71,6 @@ public class Calc extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        super.service(req, resp);
         System.out.println("Я сервайс");
     }
 

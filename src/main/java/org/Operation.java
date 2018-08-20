@@ -22,20 +22,7 @@ class Operation {
     @JsonIgnore
     SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss a");
 
-    /**
-     * Конструктор для взятия операции на обработку
-     * @param a
-     * @param b
-     * @param operation
-     */
-    Operation(String a, String b, String operation) {
-        this.a = a;
-        this.b = b;
-        this.operation = operation;
-    }
-
     Operation(){
-
     }
 
     Operation(Date date, String a, String b, String operation, String result, String idOperation) {
