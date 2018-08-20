@@ -17,3 +17,5 @@
 5. [Библиотеки для работы с Json](https://habr.com/company/luxoft/blog/280782/)
 
 6. [Spring framework](https://spring.io/projects/spring-framework#overview)
+
+7. [HttpServletRequest получает данные JSON POST](http://qaru.site/questions/44305/httpservletrequest-get-json-post-data)
