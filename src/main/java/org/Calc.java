@@ -1,5 +1,6 @@
 package org;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.ServletConfig;
@@ -34,6 +35,25 @@ public class Calc extends HttpServlet {
             req.setAttribute("exception", "Unknown error!");
             resp.getWriter().println("Error: unknown error");
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        StringBuffer jb = new StringBuffer();
+        String line;
+        try {
+            BufferedReader reader = req.getReader();
+            while ((line = reader.readLine()) != null)
+                jb.append(line);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        Operation operation = mapper.readValue(jb.toString(), Operation.class);
+        operation.result = CreatorAnswer.calc(operation.a, operation.b, operation.operation);
+        mapper.writeValue(resp.getWriter(), operation);
     }
 
     @Override
@@ -192,8 +212,6 @@ public class Calc extends HttpServlet {
             System.out.println(e.getMessage());
         }
     }
-
-
 
 
     public static String getDBName() {

@@ -18,15 +18,9 @@ import java.util.UUID;
 
 public class CreatorAnswer extends AbstractPageFactory {
 
-    private static Injector injector;
 
-    public static Injector getInjector() {
-        return injector;
-    }
-
-    public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp, Injector injector) {
+    public CreatorAnswer(HttpServletRequest req, HttpServletResponse resp) {
         super(req, resp);
-        this.injector = injector;
     }
 
     public void build() throws Exception {
@@ -63,10 +57,10 @@ public class CreatorAnswer extends AbstractPageFactory {
         page.getValue().getRequest().getRequestDispatcher("answer.jsp").forward(page.getValue().getRequest(), page.getValue().getResponse());
     }
 
-    private String calc(String strA, String strB, String operation) throws IOException {
+    public static String calc(String strA, String strB, String operation) throws IOException {
         LongArithmethic res;
-        LongArithmethic a = injector.getInstance(LongArithmethic.class);
-        LongArithmethic b = injector.getInstance(LongArithmethic.class);
+        LongArithmethic a = injector.getValue().getInstance(LongArithmethic.class);
+        LongArithmethic b = injector.getValue().getInstance(LongArithmethic.class);
         a.setValue(strA);
         b.setValue(strB);
         switch (operation) {

@@ -26,8 +26,14 @@ public abstract class AbstractPageFactory {
         }
     };
 
+    protected static Lazy<Injector> injector = new Lazy<Injector>() {
+        @Override
+        protected Injector setValue() {
+            return Guice.createInjector(new LongArithmeticModule());
+        }
+    };
 
-    private static Injector injector = Guice.createInjector(new LongArithmeticModule());
+    //private static Injector injector = Guice.createInjector(new LongArithmeticModule());
 
 
     protected AbstractPageFactory(HttpServletRequest req, HttpServletResponse resp){
@@ -42,7 +48,7 @@ public abstract class AbstractPageFactory {
         String path = url.getPath();
         switch (path) {
             case "/answer":
-                return new CreatorAnswer(req, resp, injector);
+                return new CreatorAnswer(req, resp);
             case "/calc":
                 return new CreatorInput(req, resp);
             case "/about":
