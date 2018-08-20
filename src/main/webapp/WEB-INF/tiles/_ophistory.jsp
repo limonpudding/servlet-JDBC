@@ -35,8 +35,8 @@
             'order': $('#firstSelectorDirection').val()
         };
         $.ajax({
-            method: "POST", // метод HTTP, используемый для запроса
-            url: "", // строка, содержащая URL адрес, на который отправляется запрос
+            method: "GET", // метод HTTP, используемый для запроса
+            url: "tables", // строка, содержащая URL адрес, на который отправляется запрос
             data: tableInfo,
             success: [function (firstTableRows) {
                 //$("p").text("User saved: " + msg);
@@ -58,8 +58,8 @@
             'order': $('#secondSelectorDirection').val()
         };
         $.ajax({
-            method: "POST", // метод HTTP, используемый для запроса
-            url: "", // строка, содержащая URL адрес, на который отправляется запрос
+            method: "GET", // метод HTTP, используемый для запроса
+            url: "tables", // строка, содержащая URL адрес, на который отправляется запрос
             data: tableInfo,
             success: [function (secondTableRows) {
                 //$("p").text("User saved: " + msg);

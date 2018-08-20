@@ -49,6 +49,8 @@ public abstract class AbstractPageFactory {
                 return new CreatorAbout(req, resp);
             case "/ophistory":
                 return new CreatorOpHistory(req, resp);
+            case "/tables":
+                return new CreatorTables(req,resp);
             default:
                 return new CreatorHomePage(req, resp);
         }
